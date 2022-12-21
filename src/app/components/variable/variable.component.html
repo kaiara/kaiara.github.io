@@ -1,0 +1,64 @@
+<div *ngFor="let item of variables;let i = index;" class="mb-2 d-flex col-12 align-items-center px-4 px-1 back"
+    [id]="'variable-' + i">
+    <div *ngIf="!isHidden" class="col-lg-10 d-flex justify-content-start">
+        <p class="mb-0" [id]="'cod-' + i" tabindex="0">
+            <span *ngIf="item.type == 'INTEGER'">inteiro </span>
+            <span *ngIf="item.type == 'DOUBLE'">real </span>
+            <span *ngIf="item.type == 'STRING'">cadeia </span>
+            <span *ngIf="item.type == 'BOOLEAN'">lógico </span>
+            <span>{{item.name}}</span>
+            &lsaquo;-
+            <span>{{item.value}};</span>
+
+        </p>
+    </div>
+    <div *ngIf="isHidden" class="row p-2 variable-item col-lg-10">
+        <div class="col-xl-3 col-lg-3 col-md-3">
+            <select [id]="'variable-type-' + i" name="tipo" class="form-control" title="Tipo da variável" #input
+                (change)="changeType(item, $event)" [(ngModel)]="item.type">
+                <option value="INTEGER">inteiro</option>
+                <option value="DOUBLE">real</option>
+                <option value="STRING">cadeia</option>
+                <option value="BOOLEAN">lógico</option>
+            </select>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-xs-12">
+            <input type="text" class="form-control" title="nome da variável" [(ngModel)]="item.name">
+        </div>
+        <div class="col-xl-1 col-lg-2 col-md-2 col-xs-12 d-flex align-items-center">
+            <label for="receive" tabindex="0" title="Recebe">recebe</label>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-xs-12 col-md-3" *ngIf="item.type == 'INTEGER' || item.type == 'DOUBLE'">
+            <input type="number" class="form-control" id="value" title="Valor da variável" [(ngModel)]="item.value">
+        </div>
+        <div class="col-xl-3 col-lg-3 col-xs-12 col-md-3" *ngIf="item.type == 'STRING'">
+            <input type="text" class="form-control" id="value" title="Valor da variável" [(ngModel)]="item.value">
+        </div>
+        <div class="col-xl-3 col-lg-3 col-xs-12 col-md-3" *ngIf="item.type == 'BOOLEAN'">
+            <select name="tipo" class="form-control" title="Tipo da variável" [(ngModel)]="item.value">
+                <option [ngValue]="'true'">true</option>
+                <option [ngValue]="'false'">false</option>
+            </select>
+        </div>
+
+    </div>
+    <div class="col-lg-2">
+        <div class="row justify-content-end">
+            <div class="col-xl-2 d-flex justify-content-center col-lg-3 col-md-4">
+                <button class="btn btn-transparent" (click)="toggleHidden()">
+                    <span *ngIf="isHidden" class="bi bi-eye-fill" title="Visualizar código"></span>
+                  
+                    <span *ngIf="!isHidden" class="bi bi-eye-slash-fill" title="Esconder código"></span>
+                </button>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4">
+                <button class="btn btn-transparent text-danger pr-2" (click)="removeVariable(i)" title="Excluir variável"><span aria-hidden="true">X</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div *ngFor="let item of variable;let i = index;">
+<label>asd</label>
+<input [value]="item.name" [(ngModel)]="item.name" />
+</div> -->

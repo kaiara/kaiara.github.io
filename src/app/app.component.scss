@@ -1,0 +1,40 @@
+fieldset {
+    width: 100%;
+    background-color: white;
+    position: relative;
+    display: block;
+    margin-top: 15px;
+    border-radius: 10px;
+}
+
+legend {
+    width: 200px;
+    border: 3px solid silver;
+    border-radius: 10px;
+    background-color: #3d8bd4;
+    margin-left: 50px;
+    margin-top: -15px;
+}
+
+h1:last-child, h2:last-child, h3:last-child, h4:last-child, h5:last-child {
+    margin-bottom: 0;
+}
+
+legend h1 {
+    font-size: 20px;
+    font-family: "Segoe UI", "Arial", "Times New Roman";
+    color: white;
+    padding-left: 10px;
+}
+.btn-primary{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.space-icon{
+    height: 1.19em;
+    font-size: 12px;
+}
+
+h1:focus{
+    color: #3083ff;
+}

@@ -1,0 +1,56 @@
+.bash {
+    box-shadow: 0 0 30px rgb(0 0 0 / 40%);
+    border-radius: 3px;
+    font-family: "Andale Mono", Consolas, "Courier New" !important;
+}
+
+.bash-title {
+    text-align: center;
+    color: #525252;
+    padding: 5px 0;
+    margin: 0;
+    text-shadow: 1px 1px 0 rgb(255 255 255 / 50%);
+    font-size: 0.85em;
+    border: 1px solid #CCCCCC;
+    border-bottom: none;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    background: #f7f7f7;
+    background: linear-gradient(to bottom, #f7f7f7 0%,#B8B8B8 100%);
+}
+
+.bash-body {
+    background: #111010;
+    /* list-style: none; */
+    color: #F8F8FF;
+    font: 14px 'Andale Mono', Consolas, 'Courier New';
+    line-height: 1.6em;
+    border: 1px solid #CCCCCC;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.ivprog-term-div {
+    background-color: black;
+    width: 100%;
+    height: 12rem;
+    overflow-y: scroll;
+}
+
+#cmd {
+    font-family: courier;
+    font-size: 14px;
+    line-height: normal;
+    background: inherit;
+    color: #21f838;
+    padding: 5px;
+    overflow: hidden;
+}
+
+.ivprog-term-div {
+    overflow: scroll;
+}
+
+.acessible-terminal .bash-title {
+    border-radius: 10px 10px 0 0;
+}

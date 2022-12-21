@@ -1,0 +1,16 @@
+.btn-transparent{
+    background-color: transparent;
+    border: none;
+}
+
+.bi-eye-fill::before, .bi-eye-slash-fill::before{
+    color:#17a2b8 !important;
+}
+.back{
+    background-color: antiquewhite;
+    border: solid 1px darkgray;
+    border-radius: 10px;
+}
+p:focus{
+    color: #3083ff;
+}
