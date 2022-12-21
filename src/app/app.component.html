@@ -2,17 +2,17 @@
   <div class="d-flex justify-content-center mt-5">
     <div class="back-blue col-xl-10 col-lg-11 col-md-12 mt-5 rounded">
       <nav class="navbar navbar-expand-lg navbar-dark p-4">
-        <h1><strong>iVProg Acessível</strong></h1>
+        <h1><strong tabindex="0">iVProg Acessível</strong></h1>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#inicio" accesskey="i" (click)="goToStart()">Ir função inicio</a>
+                    <a class="nav-link" href="#inicio" (click)="goToStart()" (keyup.space)="goToStart()" title="ALT + I Ir para função inicio"><span aria-hidden="true">Ir função inicio</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"  href="javascript:void(0)" (click)="goToTerminal()" accesskey="t">Ir para o terminal</a>
+                    <a class="nav-link"  href="javascript:void(0)" (click)="goToTerminal()" title="ALT + T Ir para para o terminal"><span aria-hidden="true">Ir para o terminal</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"  href="javascript:void(0)" id="goToCommands" (click)="goToComands()" accesskey="c">Ir para a lista de comandos</a>
+                    <a class="nav-link"  href="javascript:void(0)" id="goToCommands" (click)="goToComands()" title="ALT + C Ir para a lista de comandos"><span aria-hidden="true">Ir para a lista de comandos</span></a>
                 </li>
             </ul>
         </div>
