@@ -19,12 +19,12 @@ export class AppComponent {
       this.pressedAlt = false;
     }
 
-    if (event.altKey && event.code == "KeyT") {
+    if (event.altKey && event.code == "KeyC") {
       this.goToComands();
       this.pressedAlt = false;
     }
 
-    if (event.altKey && event.code == "KeyC") {
+    if (event.altKey && event.code == "KeyT") {
       this.goToTerminal();
       this.pressedAlt = false;
     }
