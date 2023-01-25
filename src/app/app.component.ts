@@ -56,7 +56,7 @@ export class AppComponent {
     this.components.push(component);
 
     setTimeout(() => {
-      document.getElementById("variable-type-" + (this.getVariables().length - 1))?.focus();
+      document.getElementById("variable-type-" + (this.components.length - 1))?.focus();
     }, 100);
   }
 
@@ -88,7 +88,7 @@ export class AppComponent {
     this.components.push(component);
 
     setTimeout(() => {
-      document.getElementById("select-var-" + (this.getOperators().length - 1))?.focus();
+      document.getElementById("select-var-" + (this.components.length - 1))?.focus();
     }, 100);
   }
 

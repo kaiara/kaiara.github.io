@@ -67,7 +67,10 @@ export class OperatorComponent implements OnInit {
   }
 
   changeValue(value: any) {
-    this.operator.value += `${value} `;
+    this.operator.value = "";
+    this.operators.forEach(op => {
+      this.operator.value += `${op.value} `;
+    });
   }
 
   toggleHidden(){
