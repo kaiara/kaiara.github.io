@@ -6,7 +6,7 @@
 
 
 .back-blue{
-    background-color: #286DAF;
+    background-color: #286daf;
 }
 .color-white{
     color: white;
@@ -31,4 +31,32 @@
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
+}
+
+.btn-transparent{
+    background-color: transparent;
+    border: none;
+}
+
+.bi-lock-fill::before, .bi-unlock-fill::before{
+    color:#17a2b8 !important;
+}
+.back{
+    background-color: antiquewhite;
+    border: solid 1px darkgray;
+    border-radius: 10px;
+}
+p:focus{
+    color: #3083ff;
+}
+
+#terminalOutput {
+    p {
+        margin: 0 !important;
+    }
+}
+
+.nav-link {
+    margin-left: 5px;
+    color: #fff;
 }

@@ -7,12 +7,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TerminalComponent } from './components/terminal/terminal.component';
 import { VariableComponent } from './components/variable/variable.component';
+import { WriteComponent } from './components/write/write.component';
+import { OperatorComponent } from './components/operator/operator.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TerminalComponent,
-    VariableComponent
+    VariableComponent,
+    WriteComponent,
+    OperatorComponent
   ],
   imports: [
     BrowserModule,

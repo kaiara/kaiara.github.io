@@ -33,7 +33,7 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": ["vcat/main.js"]
           },
           "configurations": {
             "production": {

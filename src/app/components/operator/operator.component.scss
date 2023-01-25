@@ -1,0 +1,27 @@
+input{
+    width: 47px;
+}
+
+select{
+    width: auto;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+.content{
+    display: flex;
+    justify-content: space-between;
+}
+.operator{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+input{
+    width: 5rem;
+}
+.more{
+    margin-left: 10px;
+}
+.rigth{
+    margin-right: 6px;
+}

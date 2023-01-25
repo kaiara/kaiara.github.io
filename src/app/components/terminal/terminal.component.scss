@@ -49,9 +49,12 @@
 
 .ivprog-term-div {
     overflow: scroll;
-    overflow-x: auto;
 }
 
 .acessible-terminal .bash-title {
     border-radius: 10px 10px 0 0;
+}
+
+p {
+    margin: 0;
 }

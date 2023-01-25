@@ -1,5 +1,4 @@
-import { variable } from '@angular/compiler/src/output/output_ast';
-import { Component, ElementRef, Input, OnInit, Output, EventEmitter, ViewChildren, QueryList } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-variable',
@@ -7,7 +6,8 @@ import { Component, ElementRef, Input, OnInit, Output, EventEmitter, ViewChildre
   styleUrls: ['./variable.component.scss']
 })
 export class VariableComponent implements OnInit {
-  @Input("variables") variables: Array<any> = [];
+  @Input("variable") variable: any;
+  @Input("index") index: any;
   @Output("remove") remove = new EventEmitter();
 
   isHidden: boolean = true;
@@ -17,29 +17,27 @@ export class VariableComponent implements OnInit {
   ngOnInit(): void {
    
   }
-  ngAfterViewChecked(){
-  
+
+  removeVariable() {
+    this.remove.emit(this.index);
   }
 
-  removeVariable(index: number) {
-    this.remove.emit(index);
-  }
-
-  changeType(variable: any, event: any) {
+  changeType(event: any) {
     if (event.target.value == "STRING") {
-      variable.value = "";
+      this.variable.value = "";
     } else if (event.target.value == "INTEGER" || event.target.value == "DOUBLE") {
-      variable.value = 0;
+      this.variable.value = 0;
     } else {
-      variable.value = "true";
+      this.variable.value = "true";
     }
   }
   
   toggleHidden(){
     this.isHidden = !this.isHidden;
+
     if(!this.isHidden){
       setTimeout(() => {
-        document.getElementById("cod-" + (this.variables.length - 1))?.focus();
+        document.getElementById("variable-cod-" + this.index)?.focus();
       }, 200);
     }
   }

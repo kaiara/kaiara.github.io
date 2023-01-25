@@ -1,17 +1,22 @@
 <div id="terminal" class="acessible-terminal p-4">
     <div class="bash">
         <div class="bash-title">
-            <span class="bi bi-eraser-fill" ></span>
+            <span class="bi bi-eraser-fill"></span>
             <span id="title-terminal" tabindex="0">Terminal</span>
         </div>
+
         <div id="ivprog-term" class="bash-body ivprog-term-div">
             <div id="ivprog-terminal-inputdiv">
                 <div id="cmd">
-                    <span></span>
                     <div id="cursor"></div>
-                <!-- </div><input name="command" value="" type="text" autocomplete="off"> -->
+
+                    <div *ngIf="isRunning" tabindex="0">
+                        <span id="textTerminal" tabindex="0">Começo da execução...</span>
+                        <span tabindex="0" id="terminalOutput"></span>
+                        <span tabindex="0">Fim da execução...</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
