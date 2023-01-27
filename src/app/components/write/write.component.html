@@ -12,7 +12,7 @@
             <label for="receive" tabindex="0" title="Recebe">Escreve</label>
         </div>
 
-        <select [(ngModel)]="writer.type" (change)="changeType()" class="form-select">
+        <select [id]="'write-type-' + index" [(ngModel)]="writer.type" (change)="changeType()" class="form-select">
             <option [ngValue]="''" disabled *ngIf="writer.type ==''">Selecione</option>
             <option [ngValue]="'VARIABLE'">Variável</option>
             <option [ngValue]="'TEXT'">Texto</option>
@@ -33,7 +33,7 @@
         <div class="d-flex justify-content-end">
             <button class="btn btn-transparent" (click)="toggleHidden()">
                 <span *ngIf="isHidden" class="bi bi-lock-fill" title="Visualizar código"></span>
-                <span *ngIf="!isHidden" class="bi bi-unlock-fill" title="Esconder código"></span>
+                <span *ngIf="!isHidden" class="bi bi-unlock-fill" title="Editar código"></span>
 
             </button>
             <button class="btn btn-transparent text-danger pr-2" (click)="removeWriter()" title="Excluir variável"><span

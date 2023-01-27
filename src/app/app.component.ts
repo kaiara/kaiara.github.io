@@ -1,4 +1,4 @@
-import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, HostListener, QueryList, ViewChildren } from '@angular/core';
 declare var vcat: any;
 
 const VARIABLE = "VARIABLE";
@@ -12,6 +12,7 @@ const OPERATOR = "OPERATOR";
 })
 export class AppComponent {
   title = 'ivprog';
+  private pressedAlt: boolean = false;
   components: Array<any> = [];
   isRunning: boolean = false;
 
@@ -72,6 +73,10 @@ export class AppComponent {
     }
 
     this.components.push(component);
+
+    setTimeout(() => {
+      document.getElementById("write-type-" + (this.components.length - 1))?.focus();
+    }, 100);
   }
 
   addOperator() {
@@ -231,6 +236,23 @@ export class AppComponent {
 
   goToTerminal() {
     document.getElementById('title-terminal')?.focus();
+  }
+  @HostListener("window:keydown", ["$event"]) onKeyDown(event: KeyboardEvent) {
+
+    if (event.altKey && event.code == "KeyI") {
+      this.goToStart();
+      this.pressedAlt = false;
+    }
+
+    if (event.altKey && event.code == "KeyC") {
+      this.goToComands();
+      this.pressedAlt = false;
+    }
+
+    if (event.altKey && event.code == "KeyT") {
+      this.goToTerminal();
+      this.pressedAlt = false;
+    }
   }
 }
 
