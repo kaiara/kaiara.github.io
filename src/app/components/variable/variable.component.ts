@@ -40,5 +40,10 @@ export class VariableComponent implements OnInit {
         document.getElementById("variable-cod-" + this.index)?.focus();
       }, 200);
     }
+    else{
+      setTimeout(() => {
+        document.getElementById("variable-type-" + this.index)?.focus();
+      }, 200);
+    }
   }
 }

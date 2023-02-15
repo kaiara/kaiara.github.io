@@ -3,10 +3,11 @@
         <p class="mb-0" [id]="'variable-cod-' + index" tabindex="0">
             <span *ngIf="variable.type == 'INTEGER'">inteiro </span>
             <span *ngIf="variable.type == 'DOUBLE'">real </span>
-            <span *ngIf="variable.type == 'STRING'">cadeia </span>
+            <span *ngIf="variable.type == 'STRING'">texto </span>
             <span *ngIf="variable.type == 'BOOLEAN'">lógico </span>
             <span>{{variable.name}}</span>
-            &lsaquo;-
+            <span aria-hidden="true">&lsaquo;-</span>
+            <span class="sr-only">recebe</span>
             <span>{{variable.value}};</span>
         </p>
     </div>
@@ -17,7 +18,7 @@
                 (change)="changeType($event)" [(ngModel)]="variable.type">
                 <option value="INTEGER">inteiro</option>
                 <option value="DOUBLE">real</option>
-                <option value="STRING">cadeia</option>
+                <option value="STRING">texto</option>
                 <option value="BOOLEAN">lógico</option>
             </select>
         </div>
@@ -50,7 +51,7 @@
     <div class="col-lg-2">
         <div class="d-flex justify-content-end">
             <button class="btn btn-transparent" (click)="toggleHidden()">
-                <span *ngIf="isHidden" class="bi bi-unlock-fill" title="Visualizar código"></span>
+                <span *ngIf="isHidden" class="bi bi-unlock-fill" title="Ler código"></span>
                 <span *ngIf="!isHidden" class="bi bi-lock-fill" title="Editar código"></span>
             </button>
 

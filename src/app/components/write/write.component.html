@@ -2,8 +2,7 @@
     <div *ngIf="!isHidden" class="col-lg-10 d-flex justify-content-start">
         <p class="mb-0" [id]="'writer-cod-' + index" tabindex="0">
             <span>Escreve</span>
-            &lsaquo;-
-            <span>{{writer.value}};</span>
+            <span> {{writer.value}};</span>
         </p>
     </div>
 
@@ -19,7 +18,7 @@
         </select>
 
         <select [(ngModel)]="writer.value" *ngIf="writer.type == 'VARIABLE'" class="ml-2 form-select">
-            <option *ngIf="variables.length && writer.value==''" disabled [ngValue]="''">Selecione a variável</option>
+            <option *ngIf="variables.length && writer.value==''" disabled [ngValue]="''">Selecione a variável para atribuir a operação</option>
             <option *ngFor="let v of variables" [ngValue]="v.value.name">{{v.value.name}}</option>
             <option *ngIf="!variables.length && writer.value==''" disabled [ngValue]="''">Ainda não existem variáveis
                 criadas!</option>
@@ -32,11 +31,11 @@
     <div class="col-lg-2">
         <div class="d-flex justify-content-end">
             <button class="btn btn-transparent" (click)="toggleHidden()">
-                <span *ngIf="isHidden" class="bi bi-unlock-fill" title="Visualizar código"></span>
+                <span *ngIf="isHidden" class="bi bi-unlock-fill" title="Ler código"></span>
                 <span *ngIf="!isHidden" class="bi bi-lock-fill" title="Editar código"></span>
 
             </button>
-            <button class="btn btn-transparent text-danger pr-2" (click)="removeWriter()" title="Excluir variável"><span
+            <button class="btn btn-transparent text-danger pr-2" (click)="removeWriter()" title="Remover comando"><span
                     aria-hidden="true">X</span></button>
         </div>
     </div>

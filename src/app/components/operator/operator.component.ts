@@ -81,6 +81,12 @@ export class OperatorComponent implements OnInit {
         document.getElementById("operator-cod-" + this.index)?.focus();
       }, 200);
     }
+    else{
+      setTimeout(() => {
+        document.getElementById("select-var-" + this.index)?.focus();
+      }, 200);
+    }
+ 
   }
 
   removeOperator() {
