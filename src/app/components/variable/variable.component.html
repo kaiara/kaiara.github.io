@@ -1,5 +1,5 @@
 <div class="mb-2 d-flex col-12 align-items-center px-2 back" [id]="'variable-' + index">
-    <div *ngIf="!isHidden" class="col-lg-10 d-flex justify-content-start">
+    <div *ngIf="!isHidden" class="col-lg-9 d-flex justify-content-start">
         <p class="mb-0" [id]="'variable-cod-' + index" tabindex="0">
             <span *ngIf="variable.type == 'INTEGER'">inteiro </span>
             <span *ngIf="variable.type == 'DOUBLE'">real </span>
@@ -7,12 +7,12 @@
             <span *ngIf="variable.type == 'BOOLEAN'">lógico </span>
             <span>{{variable.name}}</span>
             <span aria-hidden="true">&lsaquo;-</span>
-            <span class="sr-only">recebe</span>
+            <span class="sr-only" tabindex="0">recebe</span>
             <span>{{variable.value}};</span>
         </p>
     </div>
 
-    <div *ngIf="isHidden" class="row p-2 variable-item col-lg-10">
+    <div *ngIf="isHidden" class="row p-2 variable-item col-lg-9">
         <div class="col-xl-3 col-lg-3 col-md-3">
             <select [id]="'variable-type-' + index" name="tipo" class="form-control" title="Tipo da variável" #input
                 (change)="changeType($event)" [(ngModel)]="variable.type">
@@ -48,17 +48,19 @@
         </div>
     </div>
 
-    <div class="col-lg-2">
+    <div class="col-lg-3">
         <div class="d-flex justify-content-end">
             <button class="btn btn-transparent" (click)="toggleHidden()">
                 <span *ngIf="isHidden" class="bi bi-unlock-fill" title="Ler código"></span>
                 <span *ngIf="!isHidden" class="bi bi-lock-fill" title="Editar código"></span>
             </button>
 
-            <app-command-button [mode]="'inline'" [components]="components" [variables]="variables"></app-command-button>
 
             <button class="btn btn-transparent text-danger pr-2" (click)="removeVariable()"
                 title="Excluir variável"><span aria-hidden="true">X</span></button>
+            <app-command-button [mode]="'inline'" [text]="false" [title]="'Comandos'" [components]="components"
+                [variables]="variables"></app-command-button>
+
         </div>
     </div>
 </div>

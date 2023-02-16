@@ -7,7 +7,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class WriteComponent implements OnInit {
   isHidden: boolean = true;
-
+  @Input("text") text: boolean = true;
+  @Input("title") title: any;
   @Input("index") index: any;
   @Input("components") components: any[] = [];
   @Input('variables') variables: any;

@@ -1,5 +1,12 @@
 .inline {
     button {
-        background-color: black;
+        background-color: transparent !important;
+        border: none;
+    }
+    .bi-text-left::before{
+        color: black !important;
+    }
+    .dropdown-toggle::after{
+        color: black;
     }
 }

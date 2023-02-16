@@ -6,6 +6,8 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./variable.component.scss']
 })
 export class VariableComponent implements OnInit {
+  @Input("text") text: boolean = true;
+  @Input("title") title: any;
   @Input("index") index: any;
   @Input("variable") variable: any;
   @Input("components") components: any[] = [];
