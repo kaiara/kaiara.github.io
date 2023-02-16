@@ -9,6 +9,7 @@ import { TerminalComponent } from './components/terminal/terminal.component';
 import { VariableComponent } from './components/variable/variable.component';
 import { WriteComponent } from './components/write/write.component';
 import { OperatorComponent } from './components/operator/operator.component';
+import { CommandButtonComponent } from './components/command-button/command-button.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { OperatorComponent } from './components/operator/operator.component';
     TerminalComponent,
     VariableComponent,
     WriteComponent,
-    OperatorComponent
+    OperatorComponent,
+    CommandButtonComponent
   ],
   imports: [
     BrowserModule,

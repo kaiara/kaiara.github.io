@@ -35,6 +35,7 @@
                 <span *ngIf="!isHidden" class="bi bi-lock-fill" title="Editar código"></span>
 
             </button>
+            <app-command-button [mode]="'inline'" [components]="components" [variables]="variables"></app-command-button>
             <button class="btn btn-transparent text-danger pr-2" (click)="removeWriter()" title="Remover comando"><span
                     aria-hidden="true">X</span></button>
         </div>

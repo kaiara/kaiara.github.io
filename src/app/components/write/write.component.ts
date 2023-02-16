@@ -9,6 +9,7 @@ export class WriteComponent implements OnInit {
   isHidden: boolean = true;
 
   @Input("index") index: any;
+  @Input("components") components: any[] = [];
   @Input('variables') variables: any;
   @Input('writer') writer: any = {
     type: '',

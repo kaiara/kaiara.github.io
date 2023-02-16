@@ -9,6 +9,7 @@ export class OperatorComponent implements OnInit {
   isHidden: boolean = true;
 
   @Input("index") index: any;
+  @Input("components") components: any[] = [];
   @Input('variables') variables: any;
   @Input('operator') operator: any = {
     name: '',
@@ -16,6 +17,8 @@ export class OperatorComponent implements OnInit {
   };
 
   operators: Array<any> = [];
+
+  currentVariable: any;
 
   @Output("remove") remove = new EventEmitter();
 
@@ -34,11 +37,17 @@ export class OperatorComponent implements OnInit {
     }, 200);
   }
 
+  getVariables() {
+    return this.variables.filter((v: any) => v.value.type == this.currentVariable.type);
+  }
+
   changeType(index: any) {
     this.focusOperator(index);
   }
 
   changeVariable() {
+    this.operator.name = this.currentVariable.name;
+
     this.operators = [];
 
     this.operators.push({
@@ -46,8 +55,6 @@ export class OperatorComponent implements OnInit {
       type: '',
       value: '',
     });
-
-    this.focusOperator(this.operators.length - 1);
   }
 
   addOperator() {
@@ -66,7 +73,30 @@ export class OperatorComponent implements OnInit {
     });
   }
 
-  changeValue(value: any) {
+  changeInputValue(operator : any) {
+    switch (this.currentVariable.type) {
+      case "INTEGER":
+        if(!/^[0-9]+$/.test(operator.value)) {
+          operator.value = operator.value.substring(0, operator.value.length - 1);
+        }
+        break;
+      case "DOUBLE":
+        if(!/^[+-]?\d+((\.|\,)\d+)?$/.test(operator.value)) {
+          let lastCharacter = operator.value.substring(operator.value.length - 1, operator.value.length);
+
+          if(lastCharacter != "." && lastCharacter != ",") {
+            operator.value = operator.value.substring(0, operator.value.length - 1);
+          }
+        }
+        break;
+      default:
+        break;
+    }
+
+    this.changeValue();
+  }
+
+  changeValue() {
     this.operator.value = "";
     this.operators.forEach(op => {
       this.operator.value += `${op.value} `;
@@ -91,6 +121,16 @@ export class OperatorComponent implements OnInit {
 
   removeOperator() {
     this.remove.emit(this.index);
+  }
+
+  clear(operator: any) {
+    operator.type = "";
+    operator.value = "";
+    this.focusOperator(operator.index);
+  }
+
+  clearValue(operator: any) {
+    operator.value = "";
   }
 
 }

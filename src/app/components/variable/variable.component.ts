@@ -6,8 +6,10 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./variable.component.scss']
 })
 export class VariableComponent implements OnInit {
-  @Input("variable") variable: any;
   @Input("index") index: any;
+  @Input("variable") variable: any;
+  @Input("components") components: any[] = [];
+  @Input("variables") variables: any[] = [];
   @Output("remove") remove = new EventEmitter();
 
   isHidden: boolean = true;

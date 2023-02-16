@@ -28,28 +28,36 @@
             <div class="col-12 pt-1 pb-4 px-4" style="text-align: right;">
               <div class="px-4 py-1">
                 <div *ngFor="let component of components; let i = index;">
-                  <app-variable *ngIf="isVariable(component)" [index]="i" [variable]="component.value"
-                    (remove)="removeComponent($event)"></app-variable>
-                  <app-write *ngIf="isWriter(component)" [index]="i" [writer]="component.value"
-                    [variables]="getVariables()" (remove)="removeComponent($event)"></app-write>
-                  <app-operator *ngIf="isOperator(component)" [index]="i" [operator]="component.value"
-                    [variables]="getVariables()" (remove)="removeComponent($event)"></app-operator>
+                  <app-variable *ngIf="isVariable(component)" 
+                    [index]="i" 
+                    [variable]="component.value"
+                    [components]="components" 
+                    [variables]="getVariables()"
+                    (remove)="removeComponent($event)">
+                  </app-variable>
+
+                  <app-write *ngIf="isWriter(component)" 
+                    [index]="i" 
+                    [writer]="component.value"
+                    [components]="components"
+                    [variables]="getVariables()" 
+                    (remove)="removeComponent($event)">
+                  </app-write>
+
+                  <app-operator *ngIf="isOperator(component)" 
+                    [index]="i" 
+                    [operator]="component.value"
+                    [components]="components"
+                    [variables]="getVariables()" 
+                    (remove)="removeComponent($event)">
+                  </app-operator>
                 </div>
               </div>
 
               <div id="botoes" class="btn-group pt-4">
                 <div class="row">
                   <div class="col">
-                    <div ngbDropdown class="d-inline-block">
-                      <button id="comands" type="button" class="dropdown btn btn-primary p-3" ngbDropdownToggle>
-                        Comandos
-                      </button>
-                      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                        <button ngbDropdownItem (click)="addVariable()">Nova Variável</button>
-                        <button ngbDropdownItem (click)="addOperator()">Atribuição Matemática</button>
-                        <button ngbDropdownItem (click)="addWriter()">Escreva</button>
-                      </div>
-                    </div>
+                    <app-command-button [components]="components" [variables]="getVariables()"></app-command-button>
                   </div>
                 </div>
                 <button class="btn btn-success p-3" id="runCodeButton" type="button" (click)="run()">

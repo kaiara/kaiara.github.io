@@ -1,0 +1,10 @@
+<div ngbDropdown class="d-inline-block {{ mode }}">
+    <button id="comands" type="button" class="dropdown btn btn-primary p-3" ngbDropdownToggle>
+        Comandos
+    </button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <button ngbDropdownItem (click)="addVariable()">Nova Variável</button>
+        <button ngbDropdownItem (click)="addOperator()">Atribuição Matemática</button>
+        <button ngbDropdownItem (click)="addWriter()">Escreva</button>
+    </div>
+</div>

@@ -1,9 +1,6 @@
 import { Component, ElementRef, HostListener, QueryList, ViewChildren } from '@angular/core';
+import { TypesEnum } from './enums/types.enum';
 declare var vcat: any;
-
-const VARIABLE = "VARIABLE";
-const WRITER = "WRITER";
-const OPERATOR = "OPERATOR";
 
 @Component({
   selector: 'app-root',
@@ -19,82 +16,27 @@ export class AppComponent {
   @ViewChildren('input') inputs!: QueryList<ElementRef>;
 
   getVariables() {
-    return this.components ? this.components.filter(c => c.type == VARIABLE) : [];
+    return this.components ? this.components.filter(c => c.type == TypesEnum.VARIABLE) : [];
   }
 
   getWriters() {
-    return this.components ? this.components.filter(c => c.type == WRITER) : [];
+    return this.components ? this.components.filter(c => c.type == TypesEnum.WRITER) : [];
   }
 
   getOperators() {
-    return this.components ? this.components.filter(c => c.type == OPERATOR) : [];
+    return this.components ? this.components.filter(c => c.type == TypesEnum.OPERATOR) : [];
   }
 
   isVariable(component: any) {
-    return component.type == VARIABLE
+    return component.type == TypesEnum.VARIABLE
   }
 
   isWriter(component: any) {
-    return component.type == WRITER
+    return component.type == TypesEnum.WRITER
   }
 
   isOperator(component: any) {
-    return component.type == OPERATOR
-  }
-
-  addVariable() {
-    const variable = {
-      name: 'var' + this.getVariables().length,
-      value: '0',
-      type: "INTEGER"
-    }
-
-    const component = {
-      type: VARIABLE,
-      value: variable
-    }
-
-    this.components.push(component);
-
-    setTimeout(() => {
-      document.getElementById("variable-type-" + (this.components.length - 1))?.focus();
-    }, 100);
-  }
-
-  addWriter() {
-    const writer = {
-      type: '',
-      value: ''
-    };
-
-    const component = {
-      type: WRITER,
-      value: writer
-    }
-
-    this.components.push(component);
-
-    setTimeout(() => {
-      document.getElementById("write-type-" + (this.components.length - 1))?.focus();
-    }, 100);
-  }
-
-  addOperator() {
-    const operator = {
-      name: '',
-      value: ''
-    };
-
-    const component = {
-      type: OPERATOR,
-      value: operator
-    }
-
-    this.components.push(component);
-
-    setTimeout(() => {
-      document.getElementById("select-var-" + (this.components.length - 1))?.focus();
-    }, 100);
+    return component.type == TypesEnum.OPERATOR
   }
 
   removeComponent(index: number) {
@@ -109,7 +51,7 @@ export class AppComponent {
     let programComands = "";
 
     // Only variables first
-    this.components.filter(c => c.type == VARIABLE).forEach(c => {
+    this.components.filter(c => c.type == TypesEnum.VARIABLE).forEach(c => {
       switch (c.value.type) {
         case "INTEGER":
           programComands += `inteiro ${c.value.name} <- ${c.value.value} \n`;
@@ -120,16 +62,16 @@ export class AppComponent {
     });
 
     // Other components except variable types
-    this.components.filter(c => c.type != VARIABLE).forEach(c => {
-      if(c.type == WRITER) {
-        if(c.value.type == VARIABLE) {
+    this.components.filter(c => c.type != TypesEnum.VARIABLE).forEach(c => {
+      if(c.type == TypesEnum.WRITER) {
+        if(c.value.type == TypesEnum.VARIABLE) {
           programComands += `escreva(${c.value.value}) \n`;
         } else {
           programComands += `escreva("${c.value.value}") \n`;
         }
       }
 
-      if(c.type == OPERATOR) {
+      if(c.type == TypesEnum.OPERATOR) {
         programComands += `${c.value.name} <- ${c.value.value} \n`;
       }
     });
