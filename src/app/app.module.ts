@@ -10,6 +10,7 @@ import { VariableComponent } from './components/variable/variable.component';
 import { WriteComponent } from './components/write/write.component';
 import { OperatorComponent } from './components/operator/operator.component';
 import { CommandButtonComponent } from './components/command-button/command-button.component';
+import { ConditionalComponent } from './components/conditional/conditional.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { CommandButtonComponent } from './components/command-button/command-butt
     VariableComponent,
     WriteComponent,
     OperatorComponent,
-    CommandButtonComponent
+    CommandButtonComponent,
+    ConditionalComponent
   ],
   imports: [
     BrowserModule,

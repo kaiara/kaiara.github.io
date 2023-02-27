@@ -51,6 +51,14 @@
                     [variables]="getVariables()" 
                     (remove)="removeComponent($event)">
                   </app-operator>
+
+                  <app-conditional *ngIf="isConditional(component)"
+                  [index]="i" 
+                  [conditional]="component.value"
+                  [components]="components"
+                  [variables]="getVariables()" 
+                  (remove)="removeComponent($event)">
+                  </app-conditional>
                 </div>
               </div>
 

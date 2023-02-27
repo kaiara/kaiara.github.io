@@ -1,0 +1,46 @@
+input{
+    width: 47px;
+}
+
+select{
+    width: auto;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+.content{
+    display: flex;
+    justify-content: space-between;
+}
+.operator{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+input{
+    min-width: 8rem;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+.more{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.rigth{
+    margin-right: 6px;
+}
+
+.trash{
+    background-color: transparent;
+    border: none;
+}
+
+.dropdown-toggle{
+    background-color: white;
+    color: black;
+    border: none;
+}
+
+.conditional-dropdown {
+    margin-right: 5px;
+    margin-bottom: 5px;
+}

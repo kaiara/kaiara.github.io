@@ -9,11 +9,13 @@ import { TypesEnum } from 'src/app/enums/types.enum';
 export class CommandButtonComponent implements OnInit {
   @Input("mode") mode: any = "block";
   @Input("text") text: boolean = true;
+  @Input("hasVariables") hasVariables: boolean = true;
   @Input("title") title: any;
   @Input("components") components: any[] = [];
   @Input("variables") variables: any[] = [];
   @Input("writers") writers: any[] = [];
   @Input("operators") operators: any[] = [];
+  @Input("conditionals") conditionals: any[] = [];
 
   constructor() { }
 
@@ -72,6 +74,29 @@ export class CommandButtonComponent implements OnInit {
 
     setTimeout(() => {
       document.getElementById("select-var-" + (this.components.length - 1))?.focus();
+    }, 100);
+  }
+
+  addConditional(){
+    const conditional = {
+      condition: {
+        value: '',
+        components: [],
+      },
+      nocondition: {
+        components: [],
+      },
+    };
+
+    const component = {
+      type: TypesEnum.CONDITIONAL,
+      value: conditional
+    }
+
+    this.components.push(component);
+
+    setTimeout(() => {
+      document.getElementById("conditional-var-" + (this.components.length - 1))?.focus();
     }, 100);
   }
 

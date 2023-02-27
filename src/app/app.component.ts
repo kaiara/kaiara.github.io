@@ -27,6 +27,10 @@ export class AppComponent {
     return this.components ? this.components.filter(c => c.type == TypesEnum.OPERATOR) : [];
   }
 
+  getConditionals() {
+    return this.components ? this.components.filter(c => c.type == TypesEnum.CONDITIONAL) : [];
+  }
+
   isVariable(component: any) {
     return component.type == TypesEnum.VARIABLE
   }
@@ -39,6 +43,10 @@ export class AppComponent {
     return component.type == TypesEnum.OPERATOR
   }
 
+  isConditional(component: any) {
+    return component.type == TypesEnum.CONDITIONAL
+  }
+
   removeComponent(index: number) {
     this.components.splice(index, 1);
   }
@@ -47,11 +55,11 @@ export class AppComponent {
     this.components = [];
   }
 
-  run() {
+  runCommands(components: any) {
     let programComands = "";
 
     // Only variables first
-    this.components.filter(c => c.type == TypesEnum.VARIABLE).forEach(c => {
+    components.filter((c: any) => c.type == TypesEnum.VARIABLE).forEach((c: any) => {
       switch (c.value.type) {
         case "INTEGER":
           programComands += `inteiro ${c.value.name} <- ${c.value.value} \n`;
@@ -62,7 +70,7 @@ export class AppComponent {
     });
 
     // Other components except variable types
-    this.components.filter(c => c.type != TypesEnum.VARIABLE).forEach(c => {
+    components.filter((c: any) => c.type != TypesEnum.VARIABLE).forEach((c: any) => {
       if(c.type == TypesEnum.WRITER) {
         if(c.value.type == TypesEnum.VARIABLE) {
           programComands += `escreva(${c.value.value}) \n`;
@@ -74,7 +82,21 @@ export class AppComponent {
       if(c.type == TypesEnum.OPERATOR) {
         programComands += `${c.value.name} <- ${c.value.value} \n`;
       }
+
+      if(c.type == TypesEnum.CONDITIONAL) {
+        programComands += `se ( ${c.value.condition.value} ) { \n`;
+        programComands += this.runCommands(c.value.condition.components);
+        programComands += `} senao { \n`;
+        programComands += this.runCommands(c.value.nocondition.components);
+        programComands += `} \n`;
+      }
     });
+
+    return programComands;
+  }
+
+  run() {
+    let programComands = this.runCommands(this.components);
 
     let programSintax = `
     programa { 
@@ -139,6 +161,8 @@ export class AppComponent {
         console.error(error.id, error.context.line, error.context.column);
       else
         console.error(error)
+
+      this.terminalOutput(error.message);
       // a linha e coluna foi a estrategia pensada para poder associar o erro com o elemento visual que o gerou
       // uma vez que seria possivel associar seções do texto com o elemento que o gerou
     }
