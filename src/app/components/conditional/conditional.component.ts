@@ -13,6 +13,7 @@ export class ConditionalComponent implements OnInit {
   @Input("index") index: any;
   @Input("components") components: any[] = [];
   @Input('variables') variables: any;
+  @Input("iconComands") iconComands: boolean = true;
   @Input('conditional') conditional: any = {
     condition: {
       value: '',

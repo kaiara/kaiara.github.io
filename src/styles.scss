@@ -41,6 +41,9 @@
 .bi-lock-fill::before, .bi-unlock-fill::before{
     color:#17a2b8 !important;
 }
+.bi-pen-fill::before{
+    color: midnightblue;
+}
 .back{
     background-color: antiquewhite;
     border: solid 1px darkgray;
@@ -59,4 +62,13 @@ p:focus{
 .nav-link {
     margin-left: 5px;
     color: #fff;
+}
+
+app-conditional{
+    .write{
+        width: 48vw;
+    }
+    .tam{
+        width: 45vw;
+    }
 }

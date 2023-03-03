@@ -5,11 +5,11 @@
                 <!-- <span>{{conditional.name}}</span> -->
                 <span aria-hidden="true">&lsaquo;-</span>
                 <span class="sr-only" tabindex="0">recebe</span>
-                <!-- <span>{{conditional.value}};</span> -->
+                <span>{{conditional.value}};</span>
             </p>
         </div>
 
-        <div *ngIf="isHidden" class="d-flex flex-column col-lg-9 conditional">
+        <div *ngIf="isHidden" class="d-flex flex-column col-lg-8 conditional">
             <div class="d-flex flex-wrap">
                 <div class="d-flex justify-content-center align-items-center">
                     <span class="rigth" tabindex="0">se (</span>
@@ -129,12 +129,24 @@
                     <span class="rigth" tabindex="0">)</span>
                 </div>
 
+                <div>
+                    <span>então</span>
+                    <app-command-button 
+                        [mode]="'inline'" 
+                        [title]="'Adicionar comandos na condição'" 
+                        [hasVariables]="false"
+                        [components]="conditional.condition.components"
+                        [variables]="variables"
+                        [text]="false" 
+                        [iconComands]="false"    
+                    ></app-command-button>
+                </div>
                 <div class="d-flex justify-content-center align-items-center">
                     <button class="trash" title="limpar" (click)="clear()"><i class="bi bi-trash"></i></button>
                 </div>
             </div>
 
-            <div class="d-flex flex-wrap">
+            <div class="d-flex flex-wrap tam">
                 <div *ngFor="let component of conditional.condition.components; let i = index;">
                     <app-variable *ngIf="isVariable(component)" 
                       [index]="i" 
@@ -169,17 +181,22 @@
                     </app-conditional>
                 </div>
 
-                <app-command-button 
-                    [title]="'Adicionar componente'" 
-                    [hasVariables]="false"
-                    [components]="conditional.condition.components"
-                    [variables]="variables"
-                ></app-command-button>
+      
             </div>
 
             <div class="d-flex flex-wrap">
                 <div class="d-flex justify-content-center align-items-center">
                     <span class="rigth" tabindex="0">senao</span>
+                    
+                <app-command-button 
+                    [mode]="'inline'" 
+                    [title]="'Adicionar comandos na condição'" 
+                    [hasVariables]="false"
+                    [components]="conditional.nocondition.components"
+                    [variables]="variables"
+                    [text]="false" 
+                    [iconComands]="false"    
+                ></app-command-button>
                 </div>
             </div>
 
@@ -218,16 +235,11 @@
                     </app-conditional>
                 </div>
 
-                <app-command-button 
-                    [title]="'Adicionar componente'" 
-                    [hasVariables]="false"
-                    [components]="conditional.nocondition.components"
-                    [variables]="variables"
-                ></app-command-button>
             </div>
         </div>
 
-        <div class="col-lg-3">
+        <div class="col-lg-4">
+    
             <button class="btn btn-transparent" (click)="toggleHidden()">
                 <span *ngIf="isHidden" class="bi bi-unlock-fill" title="Ler código"><span class="sr-only">Ler código</span></span>
                 <span *ngIf="!isHidden" class="bi bi-lock-fill" title="Editar código"><span class="sr-only">Editar código</span></span>

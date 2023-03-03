@@ -44,3 +44,11 @@ input{
     margin-right: 5px;
     margin-bottom: 5px;
 }
+:host {
+    app-write{
+        .write{
+            width: 70vw;
+        }
+    }
+}
+

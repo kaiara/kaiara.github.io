@@ -10,6 +10,7 @@ export class CommandButtonComponent implements OnInit {
   @Input("mode") mode: any = "block";
   @Input("text") text: boolean = true;
   @Input("hasVariables") hasVariables: boolean = true;
+  @Input("iconComands") iconComands: boolean = true;
   @Input("title") title: any;
   @Input("components") components: any[] = [];
   @Input("variables") variables: any[] = [];

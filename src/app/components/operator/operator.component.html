@@ -1,4 +1,4 @@
-<div class="mb-2 col-lg-12 px-1 back">
+<div class="mb-2 col-lg-12 px-1 back write">
     <div class="row py-2 px-4 content">
         <div *ngIf="!isHidden" class="col-lg-9 d-flex justify-content-start">
             <p class="mb-0" [id]="'operator-cod-'+ index" tabindex="0">
@@ -29,6 +29,8 @@
                         <option [ngValue]="''" selected>Selecione</option>
                         <option [ngValue]="'VARIABLE'">Variável</option>
                         <option [ngValue]="'VALUE'">Valor</option>
+                        <option [ngValue]="'OPERATOR'">(</option>
+                        <option [ngValue]="'OPERATOR'">)</option>
                     </select>
                 </div>
 
@@ -78,6 +80,8 @@
                         <option [ngValue]="'/'">
                             <span class="sr-only">&divide;</span>
                         </option>
+                        <option [ngValue]="'('">(</option>
+                        <option [ngValue]="')'">)</option>
                     </select>
                 </div>
                 <button class="btn btn-primary more mr-2"
