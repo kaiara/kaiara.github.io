@@ -1,15 +1,12 @@
 <div class="mb-2 col-lg-12 px-1 back">
     <div class="row py-2 px-4 content">
-        <div *ngIf="!isHidden" class="col-lg-9 d-flex justify-content-start">
-            <p class="mb-0" [id]="'conditional-cod-'+ index" tabindex="0">
-                <!-- <span>{{conditional.name}}</span> -->
-                <span aria-hidden="true">&lsaquo;-</span>
-                <span class="sr-only" tabindex="0">recebe</span>
-                <span>{{conditional.value}};</span>
+        <div *ngIf="!isHidden" class="col-lg-8 d-flex justify-content-start">
+            <p class="mb-0 text-left" [id]="'conditional-cod-'+ index" tabindex="0">
+                <span [innerHTML]="commandsPlainText"></span>
             </p>
         </div>
 
-        <div *ngIf="isHidden" class="d-flex flex-column col-lg-8 conditional">
+        <div *ngIf="isHidden" class="d-flex flex-column col-8 col-lg-9 conditional">
             <div class="d-flex flex-wrap">
                 <div class="d-flex justify-content-center align-items-center">
                     <span class="rigth" tabindex="0">se (</span>
@@ -141,23 +138,17 @@
                         [iconComands]="false"    
                     ></app-command-button>
                 </div>
+
                 <div class="d-flex justify-content-center align-items-center">
                     <button class="trash" title="limpar" (click)="clear()"><i class="bi bi-trash"></i></button>
                 </div>
             </div>
 
-            <div class="d-flex flex-wrap tam">
-                <div *ngFor="let component of conditional.condition.components; let i = index;">
-                    <app-variable *ngIf="isVariable(component)" 
-                      [index]="i" 
-                      [variable]="component.value"
-                      [components]="conditional.condition.components" 
-                      [variables]="variables"
-                      (remove)="removeComponent(conditional.condition.components, $event)">
-                    </app-variable>
-  
+            <div class="row d-flex flex-wrap zindex">
+                <div class="row" *ngFor="let component of conditional.condition.components; let i = index;">  
                     <app-write *ngIf="isWriter(component)" 
                       [index]="i" 
+                      [hasToggle]="false"
                       [writer]="component.value"
                       [components]="conditional.condition.components"
                       [variables]="variables"
@@ -166,6 +157,7 @@
   
                     <app-operator *ngIf="isOperator(component)" 
                       [index]="i" 
+                      [hasToggle]="false"
                       [operator]="component.value"
                       [components]="conditional.condition.components"
                       [variables]="variables"
@@ -174,44 +166,36 @@
   
                     <app-conditional *ngIf="isConditional(component)"
                       [index]="i" 
+                      [hasToggle]="false"
                       [conditional]="component.value"
                       [components]="conditional.condition.components"
                       [variables]="variables"
                       (remove)="removeComponent(conditional.condition.components, $event)">
                     </app-conditional>
                 </div>
-
-      
             </div>
 
             <div class="d-flex flex-wrap">
                 <div class="d-flex justify-content-center align-items-center">
                     <span class="rigth" tabindex="0">senao</span>
                     
-                <app-command-button 
-                    [mode]="'inline'" 
-                    [title]="'Adicionar comandos na condição'" 
-                    [hasVariables]="false"
-                    [components]="conditional.nocondition.components"
-                    [variables]="variables"
-                    [text]="false" 
-                    [iconComands]="false"    
-                ></app-command-button>
+                    <app-command-button 
+                        [mode]="'inline'" 
+                        [title]="'Adicionar comandos na condição'" 
+                        [hasVariables]="false"
+                        [components]="conditional.nocondition.components"
+                        [variables]="variables"
+                        [text]="false" 
+                        [iconComands]="false"    
+                    ></app-command-button>
                 </div>
             </div>
 
-            <div class="d-flex flex-wrap">
-                <div *ngFor="let component of conditional.nocondition.components; let i = index;">
-                    <app-variable *ngIf="isVariable(component)" 
-                      [index]="i" 
-                      [variable]="component.value"
-                      [components]="conditional.nocondition.components" 
-                      [variables]="variables"
-                      (remove)="removeComponent(conditional.nocondition.components, $event)">
-                    </app-variable>
-  
+            <div class="row d-flex flex-wrap zindex">
+                <div class="row" *ngFor="let component of conditional.nocondition.components; let i = index;">
                     <app-write *ngIf="isWriter(component)" 
                       [index]="i" 
+                      [hasToggle]="false"
                       [writer]="component.value"
                       [components]="conditional.nocondition.components"
                       [variables]="variables"
@@ -220,6 +204,7 @@
   
                     <app-operator *ngIf="isOperator(component)" 
                       [index]="i" 
+                      [hasToggle]="false"
                       [operator]="component.value"
                       [components]="conditional.nocondition.components"
                       [variables]="variables"
@@ -228,26 +213,25 @@
   
                     <app-conditional *ngIf="isConditional(component)"
                       [index]="i" 
+                      [hasToggle]="false"
                       [conditional]="component.value"
                       [components]="conditional.nocondition.components"
                       [variables]="variables"
                       (remove)="removeComponent(conditional.nocondition.components, $event)">
                     </app-conditional>
                 </div>
-
             </div>
         </div>
 
-        <div class="col-lg-4">
-    
-            <button class="btn btn-transparent" (click)="toggleHidden()">
+        <div class="col-4 col-lg-3">
+            <button class="btn btn-transparent" *ngIf="hasToggle" (click)="toggleHidden()">
                 <span *ngIf="isHidden" class="bi bi-unlock-fill" title="Ler código"><span class="sr-only">Ler código</span></span>
                 <span *ngIf="!isHidden" class="bi bi-lock-fill" title="Editar código"><span class="sr-only">Editar código</span></span>
             </button>
 
             <button class="btn btn-transparent text-danger pr-2" (click)="removeConditional()" title="Remover comandos"><span aria-hidden="true">X</span></button>
             
-            <app-command-button 
+            <app-command-button *ngIf="hasToggle"
                 [mode]="'inline'" 
                 [text]="false" 
                 [title]="'Comandos'" 

@@ -42,25 +42,24 @@
 
         <div class="col-xl-3 col-lg-3 col-xs-12 col-md-3" *ngIf="variable.type == 'BOOLEAN'">
             <select name="tipo" class="form-control" title="Tipo da variável" [(ngModel)]="variable.value">
-                <option [ngValue]="'true'">true</option>
-                <option [ngValue]="'false'">false</option>
+                <option [ngValue]="'verdadeiro'">verdadeiro</option>
+                <option [ngValue]="'falso'">falso</option>
             </select>
         </div>
     </div>
 
     <div class="col-lg-3">
         <div class="d-flex justify-content-end">
-            <button class="btn btn-transparent" (click)="toggleHidden()">
+            <button class="btn btn-transparent" *ngIf="hasToggle" (click)="toggleHidden()">
                 <span *ngIf="isHidden" class="bi bi-unlock-fill" title="Ler código"></span>
                 <span *ngIf="!isHidden" class="bi bi-lock-fill" title="Editar código"></span>
             </button>
 
-
             <button class="btn btn-transparent text-danger pr-2" (click)="removeVariable()"
                 title="Excluir variável"><span aria-hidden="true">X</span></button>
-            <app-command-button [mode]="'inline'" [text]="false" [title]="'Comandos'" [components]="components"
-                [variables]="variables"></app-command-button>
 
+            <app-command-button *ngIf="hasToggle" [mode]="'inline'" [text]="false" [title]="'Comandos'" [components]="components"
+                [variables]="variables"></app-command-button>
         </div>
     </div>
 </div>

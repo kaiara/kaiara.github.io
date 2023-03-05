@@ -9,6 +9,7 @@ export class VariableComponent implements OnInit {
   @Input("text") text: boolean = true;
   @Input("title") title: any;
   @Input("index") index: any;
+  @Input("hasToggle") hasToggle: boolean = true;
   @Input("variable") variable: any;
   @Input("components") components: any[] = [];
   @Input("variables") variables: any[] = [];
@@ -32,7 +33,7 @@ export class VariableComponent implements OnInit {
     } else if (event.target.value == "INTEGER" || event.target.value == "DOUBLE") {
       this.variable.value = 0;
     } else {
-      this.variable.value = "true";
+      this.variable.value = "verdadeiro";
     }
   }
   

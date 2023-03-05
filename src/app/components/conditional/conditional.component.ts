@@ -11,6 +11,7 @@ export class ConditionalComponent implements OnInit {
   @Input("text") text: boolean = true;
   @Input("title") title: any;
   @Input("index") index: any;
+  @Input("hasToggle") hasToggle: boolean = true;
   @Input("components") components: any[] = [];
   @Input('variables') variables: any;
   @Input("iconComands") iconComands: boolean = true;
@@ -25,6 +26,7 @@ export class ConditionalComponent implements OnInit {
   };
 
   conditionals: Array<any> = [];
+  commandsPlainText: string = "";
 
   @Output("remove") remove = new EventEmitter();
 
@@ -104,7 +106,8 @@ export class ConditionalComponent implements OnInit {
   toggleHidden(){
     this.isHidden = !this.isHidden;
 
-    if(!this.isHidden){
+    if(!this.isHidden) {
+      this.formatCommands();
       setTimeout(() => {
         document.getElementById("conditional-cod-" + this.index)?.focus();
       }, 200);
@@ -114,7 +117,43 @@ export class ConditionalComponent implements OnInit {
         document.getElementById("select-var-" + this.index)?.focus();
       }, 200);
     }
- 
+  }
+
+  formatCommands() {
+    this.commandsPlainText = `se ( ${this.conditional.condition.value} ) { <br/>`;
+    this.commandsPlainText += `${this.runCommands(this.conditional.condition.components)}`;
+    this.commandsPlainText += `} senao { <br/>`;
+    this.commandsPlainText += `${this.runCommands(this.conditional.nocondition.components)}`;
+    this.commandsPlainText += `} <br/>`;
+  }
+
+  runCommands(components: any) {
+    let programComands = "";
+
+    // Other components except variable types
+    components.filter((c: any) => c.type != TypesEnum.VARIABLE).forEach((c: any) => {
+      if(c.type == TypesEnum.WRITER) {
+        if(c.value.type == TypesEnum.VARIABLE) {
+          programComands += `&emsp; escreva(${c.value.value}) <br/>`;
+        } else {
+          programComands += `&emsp; escreva("${c.value.value}") <br/>`;
+        }
+      }
+
+      if(c.type == TypesEnum.OPERATOR) {
+        programComands += `&emsp; ${c.value.reference} <- ${c.value.value} <br/>`;
+      }
+
+      if(c.type == TypesEnum.CONDITIONAL) {
+        programComands += `&emsp; se ( ${c.value.condition.value} ) { <br/>`;
+        programComands += `&emsp; ${this.runCommands(c.value.condition.components)}`;
+        programComands += `&emsp; } senao { <br/>`;
+        programComands += `&emsp; ${this.runCommands(c.value.nocondition.components)}`;
+        programComands += `&emsp; } <br/>`;
+      }
+    });
+
+    return programComands;
   }
 
   removeConditional() {

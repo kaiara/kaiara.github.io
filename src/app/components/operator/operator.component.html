@@ -2,7 +2,7 @@
     <div class="row py-2 px-4 content">
         <div *ngIf="!isHidden" class="col-lg-9 d-flex justify-content-start">
             <p class="mb-0" [id]="'operator-cod-'+ index" tabindex="0">
-                <span>{{operator.name}}</span>
+                <span>{{operator.reference}}</span>
                 <span aria-hidden="true">&lsaquo;-</span>
                 <span class="sr-only" tabindex="0">recebe</span>
                 <span>{{operator.value}};</span>
@@ -11,62 +11,57 @@
 
         <div *ngIf="isHidden" class="col-lg-9 operator">
             <div class="d-flex justify-content-center align-items-center">
-                <select [id]="'select-var-' + index" [(ngModel)]="currentVariable" class="ml-2 col form-select"
-                    (change)="changeVariable()">
-                    <option *ngIf="variables.length && operator.name ==''" disabled [ngValue]="undefined">Selecione a
-                        variável para atribuir a operação</option>
+                <select [id]="'select-var-' + index" [(ngModel)]="currentVariable" class="ml-2 col form-select" (change)="changeVariable()">
+                    <option *ngIf="variables.length && operator.name ==''" disabled [ngValue]="undefined">Selecione a variável para atribuir a operação</option>
+                    <option *ngIf="!variables.length" disabled [ngValue]="''">Ainda não existem variáveis criadas!</option>
                     <option *ngFor="let v of variables" [ngValue]="v.value">{{v.value.name}}</option>
-                    <option *ngIf="!variables.length" disabled [ngValue]="''">Ainda não existem variáveis criadas!
-                    </option>
                 </select>
+
                 <span class="rigth" tabindex="0">recebe</span>
             </div>
 
-            <div class="d-flex align-items-center" *ngFor="let op of operators">
+            <div class="d-flex align-items-center" *ngFor="let op of operators; let i = index">
                 <div class="col">
-                    <select class="form-select" id="operator-op-{{op.index}}" *ngIf="op.type != 'OPERATOR'"
-                        (change)="clearValue(op)" [(ngModel)]="op.type" (change)="changeType(op.index)">
-                        <option [ngValue]="''" selected>Selecione</option>
+                    <select class="ml-1 form-select" id="operator-op-{{op.index}}" *ngIf="op.type == 'PARENTHESIS'" [(ngModel)]="op.value" (change)="changeValue()">
+                        <option disabled [ngValue]="''">Selecione o parêntese</option>
+                        <option [ngValue]="'('">(</option>
+                        <option [ngValue]="')'">)</option>
+                    </select>
+                </div>
+
+                <div class="col">
+                    <select class="ml-1 form-select" id="operator-op-{{op.index}}" *ngIf="op.type == 'ATTRIBUTE' || op.type == 'VARIABLE' || op.type == 'VALUE'" [(ngModel)]="op.type" (change)="clearValue(op)">
+                        <option [ngValue]="'ATTRIBUTE'" disabled>Selecione</option>
                         <option [ngValue]="'VARIABLE'">Variável</option>
                         <option [ngValue]="'VALUE'">Valor</option>
-                        <option [ngValue]="'OPERATOR'">(</option>
-                        <option [ngValue]="'OPERATOR'">)</option>
                     </select>
                 </div>
 
                 <div class="col">
-                    <select id="operator-op-{{op.index}}" *ngIf="op.type == 'VARIABLE'" [(ngModel)]="op.value"
-                        class="ml-2 form-select" (change)="changeValue()">
-                        <option *ngIf="getVariables().length && op.value ==''" disabled [ngValue]="''">Selecione a
-                            variável</option>
+                    <select class="ml-1 form-select" *ngIf="op.type == 'VARIABLE'" [(ngModel)]="op.value" (change)="changeValue()">
+                        <option *ngIf="getVariables().length && op.value == ''" disabled [ngValue]="''">Selecione a variável</option>
+                        <option *ngIf="!getVariables().length" disabled [ngValue]="''">Ainda não existem variáveis criadas!</option>
                         <option *ngFor="let v of getVariables()" [ngValue]="v.value.name">{{v.value.name}}</option>
-                        <option *ngIf="!getVariables().length" disabled [ngValue]="''">Ainda não existem variáveis
-                            criadas!
-                        </option>
                     </select>
                 </div>
 
                 <div class="col">
-                    <input id="operator-op-{{op.index}}" *ngIf="op.type == 'VALUE' && currentVariable.type != 'BOOLEAN'"
-                        [(ngModel)]="op.value" class="form-control" (keyup)="changeInputValue(op)" type="text"
-                        placeholder="Digite o valor" />
+                    <input class="ml-1 form-control" *ngIf="op.type == 'VALUE' && currentVariable.type != 'BOOLEAN'"
+                        [(ngModel)]="op.value" (keyup)="changeInputValue(op)" type="text" placeholder="Digite o valor" />
 
-                    <select id="operator-op-{{op.index}}"
-                        *ngIf="op.type == 'VALUE' && currentVariable.type == 'BOOLEAN'" [(ngModel)]="op.value"
-                        class="ml-2 form-select" (change)="changeValue()">
+                    <select class="ml-1 form-select" *ngIf="op.type == 'VALUE' && currentVariable.type == 'BOOLEAN'" [(ngModel)]="op.value" (change)="changeValue()">
                         <option disabled [ngValue]="''">Selecione o valor</option>
-                        <option [ngValue]="'true'">True</option>
-                        <option [ngValue]="'false'">False</option>
+                        <option [ngValue]="'verdadeiro'">verdadeiro</option>
+                        <option [ngValue]="'falso'">falso</option>
                     </select>
                 </div>
 
                 <div class="col" *ngIf="op.type == 'VARIABLE' || op.type == 'VALUE'">
-                    <button class="trash" title="limpar" (click)="clear(op)"><i class="bi bi-trash"></i></button>
+                    <button class="trash" title="limpar" (click)="clearOperator(op)"><i class="bi bi-trash"></i></button>
                 </div>
 
                 <div class="col">
-                    <select class="form-select" id="operator-op-{{op.index}}" *ngIf="op.type == 'OPERATOR'"
-                        [(ngModel)]="op.value" (change)="changeValue()">
+                    <select class="form-select" id="operator-op-{{op.index}}" *ngIf="op.type == 'OPERATOR'" [(ngModel)]="op.value" (change)="changeValue()">
                         <option [ngValue]="''" disabled *ngIf="op.value == ''">Selecione a operação</option>
                         <option [ngValue]="'+'">
                             <span class="sr-only">&#43;</span>
@@ -80,29 +75,47 @@
                         <option [ngValue]="'/'">
                             <span class="sr-only">&divide;</span>
                         </option>
-                        <option [ngValue]="'('">(</option>
-                        <option [ngValue]="')'">)</option>
                     </select>
                 </div>
-                <button class="btn btn-primary more mr-2"
-                    *ngIf="operators.length && (currentVariable.type == 'INTEGER' || currentVariable.type == 'DOUBLE')"
-                    type="button" (click)="addOperator()">
-                    <strong aria-hidden="true">+</strong>
-                    <strong aria-hidden="false" class="sr-only">Adicionar operação matemática</strong>
-                </button>
             </div>
 
+            <div ngbDropdown class="d-flex align-items-center" *ngIf="currentVariable">
+                <button type="button" class="btn btn-outline-primary" id="dropdownAdd" ngbDropdownToggle>
+                    <strong aria-hidden="true">+</strong>
+                    <strong aria-hidden="false" class="sr-only">Selecione a opção</strong>
+                </button>
 
+                <div ngbDropdownMenu aria-labelledby="dropdownAdd">
+                    <button ngbDropdownItem (click)="addOperator('ATTRIBUTE')">
+                        <span>Atributo</span>
+                    </button>
+
+                    <button ngbDropdownItem (click)="addOperator('OPERATOR')" *ngIf="currentVariable?.type == 'INTEGER' || currentVariable?.type == 'DOUBLE'">
+                        <span>Operação Aritmética</span>
+                    </button>
+
+                    <button ngbDropdownItem (click)="addOperator('PARENTHESIS')" *ngIf="currentVariable?.type == 'INTEGER' || currentVariable?.type == 'DOUBLE'">
+                        <span>Parêntese</span>
+                    </button>
+                </div>
+            </div>
         </div>
+
         <div class="col-lg-3">
-            <button class="btn btn-transparent" (click)="toggleHidden()">
+            <button class="btn btn-transparent" *ngIf="hasToggle" (click)="toggleHidden()">
                 <span *ngIf="isHidden" class="bi bi-unlock-fill" title="Ler código"><span class="sr-only">Ler código</span></span>
                 <span *ngIf="!isHidden" class="bi bi-lock-fill" title="Editar código"><span class="sr-only">Editar código</span></span>
             </button>
-            <button class="btn btn-transparent text-danger pr-2" (click)="removeOperator()"
-                title="Remover comandos"><span aria-hidden="true">X</span></button>
-            <app-command-button [mode]="'inline'" [text]="false" [title]="'Comandos'" [components]="components"
-                [variables]="variables"></app-command-button>
+
+            <button class="btn btn-transparent text-danger pr-2" (click)="removeOperator()" title="Remover comandos"><span aria-hidden="true">X</span></button>
+
+            <app-command-button *ngIf="hasToggle" 
+                [mode]="'inline'" 
+                [text]="false" 
+                [title]="'Comandos'"
+                [components]="components" 
+                [variables]="variables"
+            ></app-command-button>
         </div>
     </div>
 </div>

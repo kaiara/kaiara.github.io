@@ -64,6 +64,15 @@ export class AppComponent {
         case "INTEGER":
           programComands += `inteiro ${c.value.name} <- ${c.value.value} \n`;
           break;
+        case "DOUBLE":
+          programComands += `real ${c.value.name} <- ${c.value.value} \n`;
+          break;
+        case "BOOLEAN":
+          programComands += `logico ${c.value.name} <- ${c.value.value} \n`;
+          break;
+        case "STRING":
+          programComands += `cadeia ${c.value.name} <- "${c.value.value}" \n`;
+          break;
         default:
           break;
       }
@@ -80,7 +89,7 @@ export class AppComponent {
       }
 
       if(c.type == TypesEnum.OPERATOR) {
-        programComands += `${c.value.name} <- ${c.value.value} \n`;
+        programComands += `${c.value.reference} <- ${c.value.value} \n`;
       }
 
       if(c.type == TypesEnum.CONDITIONAL) {
@@ -100,7 +109,7 @@ export class AppComponent {
 
     let programSintax = `
     programa { 
-      funcao inicio () { 
+      funcao vazio inicio () { 
         ${programComands}
       } 
     }`;

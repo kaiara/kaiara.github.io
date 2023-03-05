@@ -10,6 +10,7 @@ export class WriteComponent implements OnInit {
   @Input("text") text: boolean = true;
   @Input("title") title: any;
   @Input("index") index: any;
+  @Input("hasToggle") hasToggle: boolean = true;
   @Input("components") components: any[] = [];
   @Input('variables') variables: any;
   @Input('writer') writer: any = {

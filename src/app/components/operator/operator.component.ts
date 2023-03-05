@@ -6,19 +6,19 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./operator.component.scss']
 })
 export class OperatorComponent implements OnInit {
-  isHidden: boolean = true;
   @Input("text") text: boolean = true;
   @Input("title") title: any;
   @Input("index") index: any;
+  @Input("hasToggle") hasToggle: boolean = true;
   @Input("components") components: any[] = [];
   @Input('variables') variables: any;
   @Input('operator') operator: any = {
-    name: '',
+    reference: '',
     value: ''
   };
-
+  
+  isHidden: boolean = true;
   operators: Array<any> = [];
-
   currentVariable: any;
 
   @Output("remove") remove = new EventEmitter();
@@ -26,6 +26,21 @@ export class OperatorComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  changeVariable() {
+    this.operator.reference = this.currentVariable.name;
+    this.operators = [];
+  }
+
+  addOperator(type: string) {
+    this.operators.push({
+      index: this.operators.length,
+      type: type,
+      value: '',
+    });
+
+    this.focusOperator(this.operators.length - 1);
   }
 
   focusOperator(index: any) {
@@ -38,54 +53,35 @@ export class OperatorComponent implements OnInit {
     }, 200);
   }
 
-  getVariables() {
-    return this.variables.filter((v: any) => v.value.type == this.currentVariable.type);
+  clearOperator(operator: any) {
+    operator.type = "ATTRIBUTE";
+    operator.value = "";
+    this.focusOperator(operator.index);
   }
 
-  changeType(index: any) {
-    this.focusOperator(index);
+  clearValue(operator: any) {
+    operator.value = "";
   }
 
-  changeVariable() {
-    this.operator.name = this.currentVariable.name;
-
-    this.operators = [];
-
-    this.operators.push({
-      index: this.operators.length,
-      type: '',
-      value: '',
+  changeValue() {
+    this.operator.value = "";
+    this.operators.forEach(op => {
+      this.operator.value += `${op.value} `;
     });
   }
 
-  addOperator() {
-    this.operators.push({
-      index: this.operators.length,
-      type: 'OPERATOR',
-      value: '',
-    });
-
-    this.focusOperator(this.operators.length - 1);
-
-    this.operators.push({
-      index: this.operators.length,
-      type: '',
-      value: '',
-    });
-  }
-
-  changeInputValue(operator : any) {
+  changeInputValue(operator: any) {
     switch (this.currentVariable.type) {
       case "INTEGER":
-        if(!/^[0-9]+$/.test(operator.value)) {
+        if (!/^[0-9]+$/.test(operator.value)) {
           operator.value = operator.value.substring(0, operator.value.length - 1);
         }
         break;
       case "DOUBLE":
-        if(!/^[+-]?\d+((\.|\,)\d+)?$/.test(operator.value)) {
+        if (!/^[+-]?\d+((\.|\,)\d+)?$/.test(operator.value)) {
           let lastCharacter = operator.value.substring(operator.value.length - 1, operator.value.length);
 
-          if(lastCharacter != "." && lastCharacter != ",") {
+          if (lastCharacter != "." && lastCharacter != ",") {
             operator.value = operator.value.substring(0, operator.value.length - 1);
           }
         }
@@ -97,43 +93,30 @@ export class OperatorComponent implements OnInit {
     this.changeValue();
   }
 
-  changeValue() {
-    this.operator.value = "";
-    this.operators.forEach(op => {
-      this.operator.value += `${op.value} `;
-    });
-
-    console.log(this.operator)
+  getVariables() {
+    if (this.currentVariable.type == "DOUBLE") {
+      return this.variables.filter((v: any) => v.value.type == 'DOUBLE' || v.value.type == 'INTEGER');
+    } else {
+      return this.variables.filter((v: any) => v.value.type == this.currentVariable.type);
+    }
   }
 
-  toggleHidden(){
+  toggleHidden() {
     this.isHidden = !this.isHidden;
 
-    if(!this.isHidden){
+    if (!this.isHidden) {
       setTimeout(() => {
         document.getElementById("operator-cod-" + this.index)?.focus();
       }, 200);
-    }
-    else{
+    } else {
       setTimeout(() => {
         document.getElementById("select-var-" + this.index)?.focus();
       }, 200);
     }
- 
+
   }
 
   removeOperator() {
     this.remove.emit(this.index);
   }
-
-  clear(operator: any) {
-    operator.type = "";
-    operator.value = "";
-    this.focusOperator(operator.index);
-  }
-
-  clearValue(operator: any) {
-    operator.value = "";
-  }
-
 }
