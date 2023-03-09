@@ -31,6 +31,8 @@
 
     <div class="col-lg-3">
         <div class="d-flex justify-content-end">
+            <app-command-button *ngIf="hasToggle" [mode]="'inline'" [text]="false" [title]="'Comandos'" [components]="components"
+            [variables]="variables"></app-command-button>
             <button class="btn btn-transparent" *ngIf="hasToggle" (click)="toggleHidden()">
                 <span *ngIf="isHidden" class="bi bi-unlock-fill" title="Ler código"></span>
                 <span *ngIf="!isHidden" class="bi bi-lock-fill" title="Editar código"></span>
@@ -38,9 +40,6 @@
 
             <button class="btn btn-transparent text-danger pr-2" (click)="removeWriter()" title="Remover comandos"><span
                     aria-hidden="true">X</span></button>
-                    
-            <app-command-button *ngIf="hasToggle" [mode]="'inline'" [text]="false" [title]="'Comandos'" [components]="components"
-                [variables]="variables"></app-command-button>
         </div>
     </div>
 </div>

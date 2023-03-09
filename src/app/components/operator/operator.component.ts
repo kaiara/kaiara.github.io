@@ -53,10 +53,9 @@ export class OperatorComponent implements OnInit {
     }, 200);
   }
 
-  clearOperator(operator: any) {
-    operator.type = "ATTRIBUTE";
-    operator.value = "";
-    this.focusOperator(operator.index);
+  clearOperator(index: any) {
+    this.operators.splice(index, 1);
+    this.changeValue();
   }
 
   clearValue(operator: any) {

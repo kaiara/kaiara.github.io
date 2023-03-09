@@ -97,7 +97,7 @@ export class CommandButtonComponent implements OnInit {
     this.components.push(component);
 
     setTimeout(() => {
-      document.getElementById("conditional-var-" + (this.components.length - 1))?.focus();
+      document.getElementById("button-op-" + (this.components.length - 1))?.focus();
     }, 100);
   }
 
