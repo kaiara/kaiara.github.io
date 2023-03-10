@@ -33,12 +33,13 @@ export class OperatorComponent implements OnInit {
     this.operators = [];
   }
 
-  addOperator(type: string) {
+  addOperator(type: string, value: string = "") {
     this.operators.push({
       index: this.operators.length,
       type: type,
-      value: '',
+      value: value,
     });
+    this.changeValue();
 
     this.focusOperator(this.operators.length - 1);
   }

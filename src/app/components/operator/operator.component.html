@@ -24,8 +24,9 @@
                 <div class="col">
                     <select class="ml-1 form-select" id="operator-op-{{op.index}}" *ngIf="op.type == 'PARENTHESIS'" [(ngModel)]="op.value" (change)="changeValue()">
                         <option disabled [ngValue]="''">Selecione o parêntese</option>
-                        <option [ngValue]="'('">(</option>
-                        <option [ngValue]="')'">)</option>
+                        <option [ngValue]="'('" title="Inicio da expressão">(</option>
+                        
+                        <option [ngValue]="')'" title="Fim da expressão">)</option>
                     </select>
                 </div>
 
@@ -82,13 +83,18 @@
 
             <div ngbDropdown class="d-flex align-items-center" *ngIf="currentVariable">
                 <button type="button" class="btn btn-outline-primary" id="dropdownAdd" ngbDropdownToggle>
-                    <strong aria-hidden="true">+</strong>
+                    <span aria-hidden="true">Selecione</span>
                     <strong aria-hidden="false" class="sr-only">Selecione a opção</strong>
                 </button>
 
                 <div ngbDropdownMenu aria-labelledby="dropdownAdd">
-                      <button ngbDropdownItem (click)="addOperator('PARENTHESIS')" *ngIf="currentVariable?.type == 'INTEGER' || currentVariable?.type == 'DOUBLE'">
-                        <span>Parêntese</span>
+                    <button ngbDropdownItem (click)="addOperator('PARENTHESIS', '(')">
+                        <span aria-hidden="true">(</span>
+                        <span aria-hidden="false" class="sr-only">Inicio da expressão</span>
+                    </button>
+                      <button ngbDropdownItem (click)="addOperator('PARENTHESIS', ')')">
+                        <span aria-hidden="true">)</span>
+                        <span aria-hidden="false" class="sr-only">Fim da expressão</span>
                     </button>
                     <button ngbDropdownItem (click)="addOperator('VARIABLE')">
                         <span>Variável</span>
@@ -97,7 +103,7 @@
                         <span>Valor</span>
                     </button>
                     <button ngbDropdownItem (click)="addOperator('OPERATOR')" *ngIf="(currentVariable?.type == 'INTEGER' || currentVariable?.type == 'DOUBLE') && operators.length > 0">
-                        <span>Operação Aritmética</span>
+                        <span>Operação Matemática</span>
                     </button>
                 </div>
             </div>
