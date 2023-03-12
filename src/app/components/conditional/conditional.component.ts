@@ -10,6 +10,7 @@ export class ConditionalComponent implements OnInit {
   isHidden: boolean = true;
   @Input("text") text: boolean = true;
   @Input("title") title: any;
+  @Input("back") back: boolean = false;
   @Input("index") index: any;
   @Input("hasToggle") hasToggle: boolean = true;
   @Input("components") components: any[] = [];
@@ -62,7 +63,7 @@ export class ConditionalComponent implements OnInit {
 
   focusConditional(index: any) {
     setTimeout(() => {
-      let conditionalElement = document.getElementById(`conditional-op-${index}`);
+      let conditionalElement = document.getElementById(`conditional-op-${this.index}-${index}`);
 
       if (conditionalElement) {
         conditionalElement.focus();

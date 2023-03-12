@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-operator',
@@ -7,6 +7,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class OperatorComponent implements OnInit {
   @Input("text") text: boolean = true;
+  @Input("back") back: boolean = false;
   @Input("title") title: any;
   @Input("index") index: any;
   @Input("hasToggle") hasToggle: boolean = true;
@@ -16,7 +17,8 @@ export class OperatorComponent implements OnInit {
     reference: '',
     value: ''
   };
-  
+  private pressedAlt: boolean = false;
+
   isHidden: boolean = true;
   operators: Array<any> = [];
   currentVariable: any;
@@ -118,5 +120,15 @@ export class OperatorComponent implements OnInit {
 
   removeOperator() {
     this.remove.emit(this.index);
+  }
+
+  focusElement(id: string) {
+    setTimeout(() => {
+      let operatorElement = document.getElementById(id);
+
+      if (operatorElement) {
+        operatorElement.focus();
+      }
+    }, 200);
   }
 }

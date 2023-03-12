@@ -57,3 +57,15 @@ input{
 .zindex {
     z-index: 9;
 }
+
+.new-back{
+    background-color: #ffb0dd;
+}
+
+.btn {
+    &:focus {
+        border-color: var(--bs-btn-hover-border-color);
+        outline: 0;
+        box-shadow: var(--bs-btn-focus-box-shadow);
+    }
+}

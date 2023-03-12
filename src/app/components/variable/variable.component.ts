@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, HostListener, ViewChild } from '@angular/core';
+import { NgSelectComponent } from '@ng-select/ng-select/public-api';
 
 @Component({
   selector: 'app-variable',
@@ -15,26 +16,43 @@ export class VariableComponent implements OnInit {
   @Input("variables") variables: any[] = [];
   @Output("remove") remove = new EventEmitter();
 
+  @ViewChild('ngSelect') ngSelect!: NgSelectComponent;
+
   isHidden: boolean = true;
 
   constructor() { }
 
   ngOnInit(): void {
-   
+    this.focusElement(`variable-type-${this.index}`)
+    // setTimeout(() => {
+    //   this.ngSelect.focus();
+    // }, 200);
   }
 
   removeVariable() {
     this.remove.emit(this.index);
   }
 
-  changeType(event: any) {
-    if (event.target.value == "STRING") {
+  focusElement(id: string) {
+    setTimeout(() => {
+      let operatorElement = document.getElementById(id);
+
+      if (operatorElement) {
+        operatorElement.focus();
+      }
+    }, 200);
+  }
+
+  changeType() {
+    if (this.variable.type == "STRING") {
       this.variable.value = "";
-    } else if (event.target.value == "INTEGER" || event.target.value == "DOUBLE") {
+    } else if (this.variable.type == "INTEGER" || this.variable.type == "DOUBLE") {
       this.variable.value = 0;
     } else {
       this.variable.value = "verdadeiro";
     }
+
+    // this.focusElement(`variable-name-${this.index}`)
   }
   
   toggleHidden(){
@@ -49,6 +67,14 @@ export class VariableComponent implements OnInit {
       setTimeout(() => {
         document.getElementById("variable-type-" + this.index)?.focus();
       }, 200);
+    }
+  }
+
+  @HostListener("document:keyup", ["$event"]) onKeyUp(event: KeyboardEvent) {
+    if (event.code == "13") {
+      alert(event);
+      // this.focusOperator(this.operators.length - 1);
+      // this.pressedAlt = false;
     }
   }
 }

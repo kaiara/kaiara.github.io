@@ -212,8 +212,8 @@ export class AppComponent {
   goToTerminal() {
     document.getElementById('title-terminal')?.focus();
   }
-  @HostListener("window:keydown", ["$event"]) onKeyDown(event: KeyboardEvent) {
 
+  @HostListener("window:keydown", ["$event"]) onKeyDown(event: KeyboardEvent) {
     if (event.altKey && event.code == "KeyI") {
       this.goToStart();
       this.pressedAlt = false;

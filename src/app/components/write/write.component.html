@@ -1,6 +1,6 @@
-<div class="mb-2 d-flex col-12 align-items-center px-4 py-2 back write">
+<div class="mb-2 d-flex col-12 align-items-center px-4 py-2 back write" [ngClass]="back == true ? 'new-back' : ''">
     <div *ngIf="!isHidden" class="col-lg-9 d-flex justify-content-start">
-        <p class="mb-0" [id]="'writer-cod-' + index" tabindex="0">
+        <p class="mb-0" [id]="'writer-cod-' + idElement" tabindex="0">
             <span>Escreve</span>
             <span> {{writer.value}};</span>
         </p>
@@ -11,13 +11,13 @@
             <label for="receive" tabindex="0" title="Recebe">Escreve</label>
         </div>
 
-        <select [id]="'write-type-' + index" [(ngModel)]="writer.type" (change)="changeType()" class="form-select">
+        <select [id]="'write-type-' + idElement" [(ngModel)]="writer.type" (change)="changeType()" class="ml-3 form-select">
             <option [ngValue]="''" disabled *ngIf="writer.type ==''">Selecione</option>
             <option [ngValue]="'VARIABLE'">Variável</option>
             <option [ngValue]="'TEXT'">Texto</option>
         </select>
 
-        <select [(ngModel)]="writer.value" *ngIf="writer.type == 'VARIABLE'" class="ml-2 form-select">
+        <select [(ngModel)]="writer.value" *ngIf="writer.type == 'VARIABLE'" class="ml-3 form-select">
             <option *ngIf="variables.length && writer.value==''" disabled [ngValue]="''">Selecione a variável para
                 atribuir a operação</option>
             <option *ngFor="let v of variables" [ngValue]="v.value.name">{{v.value.name}}</option>
@@ -25,7 +25,7 @@
                 criadas!</option>
         </select>
 
-        <input class="form-select" [(ngModel)]="writer.value" *ngIf="writer.type == 'TEXT'" type="text"
+        <input class="ml-3 form-select" [(ngModel)]="writer.value" *ngIf="writer.type == 'TEXT'" type="text"
             placeholder="Digite o texto a ser imprimido" />
     </div>
 
@@ -33,7 +33,7 @@
         <div class="d-flex justify-content-end">
             <app-command-button *ngIf="hasToggle" [mode]="'inline'" [text]="false" [title]="'Comandos'" [components]="components"
             [variables]="variables"></app-command-button>
-            <button class="btn btn-transparent" *ngIf="hasToggle" (click)="toggleHidden()">
+            <button class="btn btn-transparent" (click)="toggleHidden()">
                 <span *ngIf="isHidden" class="bi bi-unlock-fill" title="Ler código"></span>
                 <span *ngIf="!isHidden" class="bi bi-lock-fill" title="Editar código"></span>
             </button>

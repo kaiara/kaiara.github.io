@@ -3,6 +3,7 @@
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 @import "~bootstrap-icons/font/bootstrap-icons.css";
+@import "~@ng-select/ng-select/themes/default.theme.css";
 
 
 .back-blue{
@@ -45,6 +46,7 @@
     color: midnightblue;
 }
 .back{
+    width: 100%;
     background-color: antiquewhite;
     border: solid 1px darkgray;
     border-radius: 10px;
@@ -62,13 +64,4 @@ p:focus{
 .nav-link {
     margin-left: 5px;
     color: #fff;
-}
-
-app-conditional{
-    .write{
-        width: 48vw;
-    }
-    .tam{
-        width: 45vw;
-    }
 }

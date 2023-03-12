@@ -11,6 +11,7 @@ import { WriteComponent } from './components/write/write.component';
 import { OperatorComponent } from './components/operator/operator.component';
 import { CommandButtonComponent } from './components/command-button/command-button.component';
 import { ConditionalComponent } from './components/conditional/conditional.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ConditionalComponent } from './components/conditional/conditional.compo
     AppRoutingModule,
     NgbModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

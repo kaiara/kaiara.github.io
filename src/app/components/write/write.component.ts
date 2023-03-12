@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class WriteComponent implements OnInit {
   isHidden: boolean = true;
   @Input("text") text: boolean = true;
+  @Input("back") back: boolean = false;
   @Input("title") title: any;
   @Input("index") index: any;
   @Input("hasToggle") hasToggle: boolean = true;
@@ -20,9 +21,18 @@ export class WriteComponent implements OnInit {
 
   @Output("remove") remove = new EventEmitter();
 
-  constructor() { }
+  idElement: any;
+
+  constructor() {
+    
+  }
 
   ngOnInit(): void {
+    this.idElement = Math.floor(Math.random() * (this.index + 1) * 10000);
+
+    setTimeout(() => {
+      document.getElementById("write-type-" + this.idElement)?.focus();
+    }, 200);
   }
 
   changeType() {
@@ -34,7 +44,7 @@ export class WriteComponent implements OnInit {
 
     if(!this.isHidden){
       setTimeout(() => {
-        document.getElementById("writer-cod-" + this.index)?.focus();
+        document.getElementById("writer-cod-" + this.idElement)?.focus();
       }, 200);
     }
   }

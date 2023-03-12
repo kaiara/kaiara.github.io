@@ -1,4 +1,4 @@
-<div class="mb-2 col-lg-12 px-1 back">
+<div class="mb-2 col-lg-12 px-1 back" [ngClass]="back == true ? 'new-back' : ''" id="conditional">
     <div class="row py-2 px-4 content">
         <div *ngIf="!isHidden" class="col-lg-8 d-flex justify-content-start">
             <p class="mb-0 text-left" [id]="'conditional-cod-'+ index" tabindex="0">
@@ -9,12 +9,14 @@
         <div *ngIf="isHidden" class="d-flex flex-column col-8 col-lg-9 conditional">
             <div class="d-flex flex-wrap">
                 <div class="d-flex justify-content-center align-items-center">
-                    <span class="rigth" tabindex="0">se (</span>
+                    <span class="rigth" tabindex="0">se</span>
+                    <span aria-hidden="true">&#40; </span>
+                    <span tabindex="0" aria-hidden="false" class="sr-only">abre parênteses</span>
                 </div>
 
                 <div class="d-flex align-items-center" *ngFor="let op of conditionals">
                     <div class="col">
-                        <select class="form-select" id="conditional-op-{{op.index}}" *ngIf="op.type != 'CONDITIONAL'"
+                        <select class="form-select" id="conditional-op-{{index}}-{{op.index}}" *ngIf="op.type != 'CONDITIONAL'"
                             [(ngModel)]="op.type" (change)="clearValue(op)">
                             <option [ngValue]="''" selected>Selecione</option>
                             <option [ngValue]="'VARIABLE'">Variável</option>
@@ -23,7 +25,7 @@
                     </div>
 
                     <div class="col">
-                        <select id="conditional-op-{{op.index}}" class="ml-2 form-select" *ngIf="op.type == 'VARIABLE'" 
+                        <select id="conditional-op-{{index}}-{{op.index}}" class="ml-2 form-select" *ngIf="op.type == 'VARIABLE'" 
                             [(ngModel)]="op.value" (change)="changeValue()">
                             <option *ngIf="!variables.length" disabled [ngValue]="''">Ainda não existem variáveis criadas!</option>
                             <option *ngIf="variables.length && op.value ==''" disabled [ngValue]="''">Selecione a variável</option>
@@ -32,22 +34,22 @@
                     </div>
 
                     <div class="col">
-                        <input id="conditional-op-{{op.index}}" class="form-control" *ngIf="op.type == 'VALUE'" 
+                        <input id="conditional-op-{{index}}-{{op.index}}" class="form-control" *ngIf="op.type == 'VALUE'" 
                             [(ngModel)]="op.valueString" (keyup)="changeInputValue(op)" type="text" placeholder="Digite o valor" />
                     </div>
 
                     <div class="col">
                         <div ngbDropdown class="d-inline-block conditional-dropdown"  *ngIf="op.type == 'CONDITIONAL'">
-                            <button type="button" class="btn btn-outline-primary" id="dropdownBasic2" ngbDropdownToggle>
-                                <span aria-hidden="true">{{ op.value == '' ? 'Selecione' : op.value }}</span>
+                            <button type="button" class="btn btn-outline-primary" id="conditional-op-{{index}}-{{op.index}}" tabindex="0" ngbDropdownToggle>
+                                <span aria-hidden="true">{{ op.value == '' ? 'Selecione a condição' : op.value }}</span>
                                 <span class="sr-only" tabindex="0">Selecione a condição</span>
                             </button>
 
-                            <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                            <div ngbDropdownMenu attr.aria-labelledby="conditional-op-{{index}}-{{op.index}}">
                                 <div ngbDropdown placement="right">
-                                    <button type="button" class="btn btn-outline-primary" id="dropdownBasic3"
+                                    <button type="button" class="btn btn-outline-primary" id="dropdown-conditional-{{index}}-{{op.index}}-aritmeticos"
                                         ngbDropdownToggle>Aritméticos</button>
-                                    <div ngbDropdownMenu aria-labelledby="dropdownBasic3">
+                                    <div ngbDropdownMenu attr.aria-labelledby="dropdown-conditional-{{index}}-{{op.index}}-aritmeticos">
                                         <button ngbDropdownItem (click)="changeConditional(op, '+')">
                                             <span>&#43;</span>
                                         </button>
@@ -55,7 +57,8 @@
                                             <span>&minus;</span>
                                         </button>
                                         <button ngbDropdownItem (click)="changeConditional(op, '*')">
-                                            <span>&lowast;</span>
+                                            <span aria-hidden="true">&lowast;</span>
+                                            <span aria-hidden="false" class="sr-only">multiplicação</span>
                                         </button>
                                         <button ngbDropdownItem (click)="changeConditional(op, '/')">
                                             <span>&frasl;</span>
@@ -66,14 +69,11 @@
                                     </div>
                                 </div>
                                 <div ngbDropdown placement="right">
-                                    <button type="button" class="btn btn-outline-primary" id="dropdownBasic4"
+                                    <button type="button" class="btn btn-outline-primary" id="dropdown-conditional-{{index}}-{{op.index}}-logicos"
                                         ngbDropdownToggle>Lógicos</button>
-                                    <div ngbDropdownMenu aria-labelledby="dropdownBasic4">
+                                    <div ngbDropdownMenu attr.aria-labelledby="dropdown-conditional-{{index}}-{{op.index}}-logicos">
                                         <button ngbDropdownItem (click)="changeConditional(op, '==')">
                                             <span>&#61;&#61;</span>
-                                        </button>
-                                        <button ngbDropdownItem (click)="changeConditional(op, '!=')">
-                                            <span>!&#61;</span>
                                         </button>
                                         <button ngbDropdownItem (click)="changeConditional(op, 'E')">
                                             <span>E</span>
@@ -87,26 +87,27 @@
                                     </div>
                                 </div>
                                 <div ngbDropdown placement="right">
-                                    <button type="button" class="btn btn-outline-primary" id="dropdownBasic4"
+                                    <button type="button" class="btn btn-outline-primary" id="dropdown-conditional-{{index}}-{{op.index}}-relacionais"
                                         ngbDropdownToggle>Relacionais</button>
-                                    <div ngbDropdownMenu aria-labelledby="dropdownBasic4">
+                                    <div ngbDropdownMenu attr.aria-labelledby="dropdown-conditional-{{index}}-{{op.index}}-relacionais">
                                         <button ngbDropdownItem (click)="changeConditional(op, '>')">
-                                            <span>&#8250;</span>
+                                            <span>&#62;</span>
                                         </button>
                                         <button ngbDropdownItem (click)="changeConditional(op, '<')">
-                                            <span>&lsaquo;</span>
+                                            <span>&#60;</span>
                                         </button>
                                         <button ngbDropdownItem (click)="changeConditional(op, '==')">
                                             <span>&#61;&#61;</span>
                                         </button>
                                         <button ngbDropdownItem (click)="changeConditional(op, '!=')">
-                                            <span>!&#61;</span>
+                                            <span aria-hidden="true">!&#61;</span>
+                                            <span aria-hidden="false" class="sr-only">diferente ou igual</span>
                                         </button>
                                         <button ngbDropdownItem (click)="changeConditional(op, '>=')">
-                                            <span>&#8250;&#61;</span>
+                                            <span>&#8805;</span>
                                         </button>
                                         <button ngbDropdownItem (click)="changeConditional(op, '<=')">
-                                            <span>&lsaquo;&#61;</span>
+                                            <span>&#8804;</span>
                                         </button>
                                     </div>
                                 </div>
@@ -118,16 +119,17 @@
                 <div class="d-flex justify-content-center align-items-center">
                     <button class="btn btn-primary more mr-2" *ngIf="conditionals.length" type="button" (click)="addConditional()">
                         <strong aria-hidden="true">+</strong>
-                        <strong aria-hidden="false" class="sr-only">Adicionar operação matemática</strong>
+                        <strong aria-hidden="false" class="sr-only">selecione a condição</strong>
                     </button>
                 </div>
 
                 <div class="d-flex justify-content-center align-items-center">
-                    <span class="rigth" tabindex="0">)</span>
+                    <span aria-hidden="true">)</span>
+                    <span tabindex="0" aria-hidden="false" class="sr-only">fecha parênteses</span>
                 </div>
 
                 <div>
-                    <span>então</span>
+                    <span tabindex="0">então</span>
                     <app-command-button 
                         [mode]="'inline'" 
                         [title]="'Adicionar comandos na condição'" 
@@ -143,10 +145,29 @@
                     <button class="trash" title="limpar" (click)="clear()"><i class="bi bi-trash"></i></button>
                 </div>
             </div>
+        </div>
 
+        <div class="col-4 col-lg-3">
+            <app-command-button *ngIf="hasToggle"
+                [mode]="'inline'" 
+                [text]="false" 
+                [title]="'Comandos'" 
+                [components]="components"
+                [variables]="variables"
+            ></app-command-button>
+            <button class="btn btn-transparent" (click)="toggleHidden()">
+                <span *ngIf="isHidden" class="bi bi-unlock-fill" title="Ler código"><span class="sr-only">Ler código</span></span>
+                <span *ngIf="!isHidden" class="bi bi-lock-fill" title="Editar código"><span class="sr-only">Editar código</span></span>
+            </button>
+
+            <button class="btn btn-transparent text-danger pr-2" (click)="removeConditional()" title="Remover comandos"><span aria-hidden="true">X</span></button>
+        </div>
+
+        <div *ngIf="isHidden" class="d-flex flex-column col-12 col-lg-12 conditional">
             <div class="row d-flex flex-wrap zindex">
                 <div class="row" *ngFor="let component of conditional.condition.components; let i = index;">  
                     <app-write *ngIf="isWriter(component)" 
+                      [back]="true"
                       [index]="i" 
                       [hasToggle]="false"
                       [writer]="component.value"
@@ -156,6 +177,7 @@
                     </app-write>
   
                     <app-operator *ngIf="isOperator(component)" 
+                      [back]="true"
                       [index]="i" 
                       [hasToggle]="false"
                       [operator]="component.value"
@@ -165,6 +187,7 @@
                     </app-operator>
   
                     <app-conditional *ngIf="isConditional(component)"
+                      [back]="true"
                       [index]="i" 
                       [hasToggle]="false"
                       [conditional]="component.value"
@@ -194,6 +217,7 @@
             <div class="row d-flex flex-wrap zindex">
                 <div class="row" *ngFor="let component of conditional.nocondition.components; let i = index;">
                     <app-write *ngIf="isWriter(component)" 
+                      [back]="true"
                       [index]="i" 
                       [hasToggle]="false"
                       [writer]="component.value"
@@ -203,6 +227,7 @@
                     </app-write>
   
                     <app-operator *ngIf="isOperator(component)" 
+                      [back]="true"
                       [index]="i" 
                       [hasToggle]="false"
                       [operator]="component.value"
@@ -212,6 +237,7 @@
                     </app-operator>
   
                     <app-conditional *ngIf="isConditional(component)"
+                      [back]="true"
                       [index]="i" 
                       [hasToggle]="false"
                       [conditional]="component.value"
@@ -223,20 +249,6 @@
             </div>
         </div>
 
-        <div class="col-4 col-lg-3">
-            <app-command-button *ngIf="hasToggle"
-                [mode]="'inline'" 
-                [text]="false" 
-                [title]="'Comandos'" 
-                [components]="components"
-                [variables]="variables"
-            ></app-command-button>
-            <button class="btn btn-transparent" *ngIf="hasToggle" (click)="toggleHidden()">
-                <span *ngIf="isHidden" class="bi bi-unlock-fill" title="Ler código"><span class="sr-only">Ler código</span></span>
-                <span *ngIf="!isHidden" class="bi bi-lock-fill" title="Editar código"><span class="sr-only">Editar código</span></span>
-            </button>
-
-            <button class="btn btn-transparent text-danger pr-2" (click)="removeConditional()" title="Remover comandos"><span aria-hidden="true">X</span></button>
-        </div>
+        
     </div>
 </div>

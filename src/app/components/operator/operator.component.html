@@ -1,4 +1,4 @@
-<div class="mb-2 col-lg-12 px-1 back write">
+<div class="mb-2 col-lg-12 px-1 back write" [ngClass]="back == true ? 'new-back' : ''">
     <div class="row py-2 px-4 content">
         <div *ngIf="!isHidden" class="col-lg-9 d-flex justify-content-start">
             <p class="mb-0" [id]="'operator-cod-'+ index" tabindex="0">
@@ -17,6 +17,17 @@
                     <option *ngFor="let v of variables" [ngValue]="v.value">{{v.value.name}}</option>
                 </select>
 
+                <!-- <ng-select #ngSelect 
+                    id="select-var-{{index}}" 
+                    class="ml-2 col form-select"
+                    [searchable]="false"
+                    (change)="changeVariable()" 
+                    [(ngModel)]="currentVariable" 
+                    notFoundText="Ainda não existem variáveis criadas!"
+                    placeholder="Selecione a variável">
+                    <ng-option *ngFor="let v of variables" [value]="v.value">{{v.value.name}}</ng-option>
+                 </ng-select> -->
+
                 <span class="rigth" tabindex="0">recebe</span>
             </div>
 
@@ -24,9 +35,8 @@
                 <div class="col">
                     <select class="ml-1 form-select" id="operator-op-{{op.index}}" *ngIf="op.type == 'PARENTHESIS'" [(ngModel)]="op.value" (change)="changeValue()">
                         <option disabled [ngValue]="''">Selecione o parêntese</option>
-                        <option [ngValue]="'('" title="Inicio da expressão">(</option>
-                        
-                        <option [ngValue]="')'" title="Fim da expressão">)</option>
+                        <option [ngValue]="'('" title="abre parênteses">(</option>
+                        <option [ngValue]="')'" title="fecha parênteses">)</option>
                     </select>
                 </div>
 
@@ -68,7 +78,8 @@
                             <span class="sr-only">&minus;</span>
                         </option>
                         <option [ngValue]="'*'">
-                            <span class="sr-only">&lowast;</span>
+                            <span aria-hidden="true">&lowast;</span>
+                            <span aria-hidden="false" class="sr-only">multiplicação</span>
                         </option>
                         <option [ngValue]="'/'">
                             <span class="sr-only">&divide;</span>
@@ -90,11 +101,11 @@
                 <div ngbDropdownMenu aria-labelledby="dropdownAdd">
                     <button ngbDropdownItem (click)="addOperator('PARENTHESIS', '(')">
                         <span aria-hidden="true">(</span>
-                        <span aria-hidden="false" class="sr-only">Inicio da expressão</span>
+                        <span aria-hidden="false" class="sr-only">abre parênteses</span>
                     </button>
                       <button ngbDropdownItem (click)="addOperator('PARENTHESIS', ')')">
                         <span aria-hidden="true">)</span>
-                        <span aria-hidden="false" class="sr-only">Fim da expressão</span>
+                        <span aria-hidden="false" class="sr-only">fecha parênteses</span>
                     </button>
                     <button ngbDropdownItem (click)="addOperator('VARIABLE')">
                         <span>Variável</span>
@@ -117,7 +128,7 @@
                 [components]="components" 
                 [variables]="variables"
             ></app-command-button>
-            <button class="btn btn-transparent" *ngIf="hasToggle" (click)="toggleHidden()">
+            <button class="btn btn-transparent" (click)="toggleHidden()">
                 <span *ngIf="isHidden" class="bi bi-unlock-fill" title="Ler código"><span class="sr-only">Ler código</span></span>
                 <span *ngIf="!isHidden" class="bi bi-lock-fill" title="Editar código"><span class="sr-only">Editar código</span></span>
             </button>
