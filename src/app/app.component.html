@@ -53,12 +53,20 @@
                   </app-operator>
 
                   <app-conditional *ngIf="isConditional(component)"
-                  [index]="i" 
-                  [conditional]="component.value"
-                  [components]="components"
-                  [variables]="getVariables()" 
-                  (remove)="removeComponent($event)">
+                    [index]="i" 
+                    [conditional]="component.value"
+                    [components]="components"
+                    [variables]="getVariables()" 
+                    (remove)="removeComponent($event)">
                   </app-conditional>
+
+                  <app-for *ngIf="isFor(component)"
+                    [index]="i" 
+                    [for]="component.value"
+                    [components]="components"
+                    [variables]="getVariables()" 
+                    (remove)="removeComponent($event)">
+                  </app-for>
                 </div>
               </div>
 

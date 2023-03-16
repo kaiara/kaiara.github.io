@@ -1,0 +1,133 @@
+<div class="mb-2 col-lg-12 px-1 back" [ngClass]="back == true ? 'new-back' : ''" id="for">
+    <div class="row py-2 px-2 content">
+        <div *ngIf="!isHidden" class="col-lg-10 d-flex justify-content-start text">
+            <p class="mb-0 text-left" [id]="'for-cod-'+ index" tabindex="0">
+                <span [innerHTML]="commandsPlainText"></span>
+            </p>
+        </div>
+
+        <div *ngIf="isHidden" class="d-flex flex-column col-8 col-lg-10 for justify-content-center">
+            <div class="row row-cols-2">
+                <div class="col">
+                    <div class="d-flex justify-content-center align-items-center pl-3">
+                        <span>repita_para</span>
+                        <select id="for-select-var-{{index}}" class="ml-2 col form-select" [(ngModel)]="for.variable"  id="for-select-{{index}}">
+                            <option *ngIf="!variables.length" disabled [ngValue]="''">Ainda não existem variáveis
+                                criadas!</option>
+                            <option *ngIf="variables.length" disabled [ngValue]="''">Selecione a variável</option>
+                            <option *ngFor="let v of variables" [ngValue]="v.value.name">{{v.value.name}}</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="col">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <span>De</span>
+                        <select id="for-start-type-{{index}}" class="ml-1 form-select" [(ngModel)]="for.startType"  id="for-select-{{index}}"
+                            (change)="clearStartValue()">
+                            <option [ngValue]="''" disabled>Selecione</option>
+                            <option [ngValue]="'VARIABLE'">Variável</option>
+                            <option [ngValue]="'VALUE'">Valor</option>
+                        </select>
+
+                        <select id="for-start-value-{{index}}" class="ml-1 form-select"
+                            *ngIf="for.startType == 'VARIABLE'" [(ngModel)]="for.startValue">
+                            <option *ngIf="!variables.length" disabled [ngValue]="''">Ainda não existem variáveis
+                                criadas!</option>
+                            <option *ngIf="variables.length" disabled [ngValue]="''">Selecione a variável</option>
+                            <option *ngFor="let v of variables" [ngValue]="v.value.name">{{v.value.name}}</option>
+                        </select>
+
+                        <input id="for-start-value-{{index}}" class="ml-1 form-control" *ngIf="for.startType == 'VALUE'"
+                            [(ngModel)]="for.startValue" type="text" placeholder="Digite o valor" />
+                    </div>
+                </div>
+            </div>
+            <div class="row row-cols-3">
+
+                <div class="col-7">
+                    <div class="d-flex justify-content-center align-items-center p-3">
+
+                        <span>Até</span>
+                        <select id="for-finish-type-{{index}}" class="ml-1 form-select" [(ngModel)]="for.finishType"
+                            (change)="clearFinishValue()">
+                            <option [ngValue]="''" disabled>Selecione</option>
+                            <option [ngValue]="'VARIABLE'">Variável</option>
+                            <option [ngValue]="'VALUE'">Valor</option>
+                        </select>
+
+                        <select id="for-finish-value-{{index}}" class="ml-1 form-select"
+                            *ngIf="for.finishType == 'VARIABLE'" [(ngModel)]="for.finishValue">
+                            <option *ngIf="!variables.length" disabled [ngValue]="''">Ainda não existem variáveis
+                                criadas!</option>
+                            <option *ngIf="variables.length" disabled [ngValue]="''">Selecione a variável</option>
+                            <option *ngFor="let v of variables" [ngValue]="v.value.name">{{v.value.name}}</option>
+                        </select>
+
+                        <input id="for-finish-value-{{index}}" class="ml-1 form-control"
+                            *ngIf="for.finishType == 'VALUE'" [(ngModel)]="for.finishValue" type="text"
+                            placeholder="Digite o valor" />
+                    </div>
+                </div>
+                <div class="col-4 p-0">
+                    <div class="d-flex justify-content-center align-items-center pt-3 pb-3">
+                        <select id="for-increment-type-{{index}}" class="ml-1 form-select"
+                            [(ngModel)]="for.incrementType">
+                            <option [ngValue]="''" disabled>Selecione</option>
+                            <option [ngValue]="'+'">+</option>
+                            <option [ngValue]="'-'">-</option>
+                        </select>
+                        <input id="for-increment-value-{{index}}" class="ml-1 form-control"
+                            [(ngModel)]="for.incrementValue" type="text" placeholder="Digite o valor" />
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center align-items-center col-1">
+                    <app-command-button [mode]="'inline'" [title]="'Adicionar comandos na condição'"
+                        [hasVariables]="false" [components]="for.components" [variables]="variables" [text]="false"
+                        [iconComands]="false"></app-command-button>
+                </div>
+
+            </div>
+
+            <div class="row d-flex flex-wrap zindex col">
+                <div class="row" *ngFor="let component of for.components; let i = index;">
+                    <app-write *ngIf="isWriter(component)" [back]="true" [index]="i" [hasToggle]="false"
+                        [writer]="component.value" [components]="for.components" [variables]="variables"
+                        (remove)="removeComponent(for.components, $event)">
+                    </app-write>
+
+                    <app-operator *ngIf="isOperator(component)" [back]="true" [index]="i" [hasToggle]="false"
+                        [operator]="component.value" [components]="for.components" [variables]="variables"
+                        (remove)="removeComponent(for.components, $event)">
+                    </app-operator>
+
+                    <app-conditional *ngIf="isConditional(component)" [back]="true" [index]="i" [hasToggle]="false"
+                        [conditional]="component.value" [components]="for.components" [variables]="variables"
+                        (remove)="removeComponent(for.components, $event)">
+                    </app-conditional>
+
+                    <app-for *ngIf="isFor(component)" [back]="true" [index]="i" [hasToggle]="false"
+                        [for]="component.value" [components]="for.components" [variables]="variables"
+                        (remove)="removeComponent(for.components, $event)">
+                    </app-for>
+                </div>
+            </div>
+        </div>
+        <div class="col-4 col-lg-2">
+            <app-command-button *ngIf="hasToggle" [mode]="'inline'" [text]="false" [title]="'Comandos'"
+                [components]="components" [variables]="variables"></app-command-button>
+            <button class="btn btn-transparent"  (click)="toggleHidden()">
+                <span *ngIf="isHidden" class="bi bi-unlock-fill" title="Ler código"><span class="sr-only">Ler
+                        código</span></span>
+                <span *ngIf="!isHidden" class="bi bi-lock-fill" title="Editar código"><span class="sr-only">Editar
+                        código</span></span>
+            </button>
+
+            <button class="btn btn-transparent text-danger pr-2" (click)="removeFor()" title="Remover comandos"><span
+                    aria-hidden="true">X</span></button>
+        </div>
+
+    </div>
+</div>

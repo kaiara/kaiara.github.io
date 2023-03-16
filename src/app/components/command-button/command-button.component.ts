@@ -17,6 +17,7 @@ export class CommandButtonComponent implements OnInit {
   @Input("writers") writers: any[] = [];
   @Input("operators") operators: any[] = [];
   @Input("conditionals") conditionals: any[] = [];
+  @Input("for") for: any[] = [];
 
   constructor() { }
 
@@ -101,4 +102,28 @@ export class CommandButtonComponent implements OnInit {
     }, 100);
   }
 
+
+  addFor(){
+    const forOperator = {
+      variable: '',
+      startType: '',
+      startValue: '',
+      finishType: '',
+      finishValue: '',
+      incrementType: '',
+      incrementValue: '',
+      components: []
+    };
+
+    const component = {
+      type: TypesEnum.FOR_CODITIONAL,
+      value: forOperator
+    }
+
+    this.components.push(component);
+
+    setTimeout(() => {
+      document.getElementById("for-select-" + (this.components.length - 1))?.focus();
+    }, 100);
+  }
 }

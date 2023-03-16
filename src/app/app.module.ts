@@ -12,6 +12,7 @@ import { OperatorComponent } from './components/operator/operator.component';
 import { CommandButtonComponent } from './components/command-button/command-button.component';
 import { ConditionalComponent } from './components/conditional/conditional.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ForComponent } from './components/for/for.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     WriteComponent,
     OperatorComponent,
     CommandButtonComponent,
-    ConditionalComponent
+    ConditionalComponent,
+    ForComponent
   ],
   imports: [
     BrowserModule,

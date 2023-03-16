@@ -31,6 +31,10 @@ export class AppComponent {
     return this.components ? this.components.filter(c => c.type == TypesEnum.CONDITIONAL) : [];
   }
 
+  getFor() {
+    return this.components ? this.components.filter(c => c.type == TypesEnum.FOR_CODITIONAL) : [];
+  }
+
   isVariable(component: any) {
     return component.type == TypesEnum.VARIABLE
   }
@@ -45,6 +49,10 @@ export class AppComponent {
 
   isConditional(component: any) {
     return component.type == TypesEnum.CONDITIONAL
+  }
+
+  isFor(component: any) {
+    return component.type == TypesEnum.FOR_CODITIONAL
   }
 
   removeComponent(index: number) {
@@ -97,6 +105,12 @@ export class AppComponent {
         programComands += this.runCommands(c.value.condition.components);
         programComands += `} senao { \n`;
         programComands += this.runCommands(c.value.nocondition.components);
+        programComands += `} \n`;
+      }
+
+      if(c.type == TypesEnum.FOR_CODITIONAL) {
+        programComands += `repita_para ${c.value.variable} de ${c.value.startValue} ate ${c.value.finishValue} passo ${c.value.incrementType}${c.value.incrementValue} { \n`;
+        programComands += this.runCommands(c.value.components);
         programComands += `} \n`;
       }
     });
