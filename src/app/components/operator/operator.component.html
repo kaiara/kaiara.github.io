@@ -94,8 +94,8 @@
 
             <div ngbDropdown class="d-flex align-items-center" *ngIf="currentVariable">
                 <button type="button" class="btn btn-outline-primary" id="dropdownAdd" ngbDropdownToggle>
-                    <span aria-hidden="true">Selecione</span>
-                    <strong aria-hidden="false" class="sr-only">Selecione a opção</strong>
+                    <span aria-hidden="true">+</span>
+                    <strong aria-hidden="false" class="sr-only">Adicionar</strong>
                 </button>
 
                 <div ngbDropdownMenu aria-labelledby="dropdownAdd">
@@ -121,7 +121,7 @@
         </div>
 
         <div class="col-lg-3">
-            <app-command-button *ngIf="hasToggle" 
+            <app-command-button 
                 [mode]="'inline'" 
                 [text]="false" 
                 [title]="'Comandos'"

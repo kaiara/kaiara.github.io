@@ -227,6 +227,10 @@ export class AppComponent {
     document.getElementById('title-terminal')?.focus();
   }
 
+  goToExecut() {
+    this.run();
+  }
+
   @HostListener("window:keydown", ["$event"]) onKeyDown(event: KeyboardEvent) {
     if (event.altKey && event.code == "KeyI") {
       this.goToStart();
@@ -240,6 +244,11 @@ export class AppComponent {
 
     if (event.altKey && event.code == "KeyT") {
       this.goToTerminal();
+      this.pressedAlt = false;
+    }
+
+    if (event.altKey && event.code == "KeyE") {
+      this.goToExecut();
       this.pressedAlt = false;
     }
   }

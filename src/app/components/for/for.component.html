@@ -49,7 +49,7 @@
                 <div class="col-7">
                     <div class="d-flex justify-content-center align-items-center p-3">
 
-                        <span>Até</span>
+                        <span tabindex="0">Até</span>
                         <select id="for-finish-type-{{index}}" class="ml-1 form-select" [(ngModel)]="for.finishType"
                             (change)="clearFinishValue()">
                             <option [ngValue]="''" disabled>Selecione</option>
@@ -75,8 +75,8 @@
                         <select id="for-increment-type-{{index}}" class="ml-1 form-select"
                             [(ngModel)]="for.incrementType">
                             <option [ngValue]="''" disabled>Selecione</option>
-                            <option [ngValue]="'+'">+</option>
-                            <option [ngValue]="'-'">-</option>
+                            <option [ngValue]="'+'">++</option>
+                            <option [ngValue]="'-'">--</option>
                         </select>
                         <input id="for-increment-value-{{index}}" class="ml-1 form-control"
                             [(ngModel)]="for.incrementValue" type="text" placeholder="Digite o valor" />
@@ -84,7 +84,7 @@
                 </div>
 
                 <div class="d-flex justify-content-center align-items-center col-1">
-                    <app-command-button [mode]="'inline'" [title]="'Adicionar comandos na condição'"
+                    <app-command-button [mode]="'inline'" [title]="'Adicionar comandos à repetição'"
                         [hasVariables]="false" [components]="for.components" [variables]="variables" [text]="false"
                         [iconComands]="false"></app-command-button>
                 </div>
