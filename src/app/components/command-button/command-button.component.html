@@ -1,8 +1,8 @@
 <div ngbDropdown class="d-inline-block {{ mode }}">
     <button id="comands" type="button" class="dropdown btn btn-primary p-3" ngbDropdownToggle title="{{title}}">
         <span *ngIf="text == true">Comandos</span>
-        <i *ngIf="text == false && iconComands ==true" class="bi bi-code-slash"></i>
-        <i *ngIf="text == false && iconComands == false" class="bi bi-code-slash"></i>
+        <span *ngIf="text == false && iconComands ==true" class="bi bi-code-slash"></span>
+        <span *ngIf="text == false && iconComands == false" class="bi bi-code-slash"></span>
     </button>
     <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
         <button ngbDropdownItem *ngIf="hasVariables" (click)="addVariable()">Nova Variável</button>
