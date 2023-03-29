@@ -41,8 +41,8 @@
                     <div class="col">
                         <div ngbDropdown class="d-inline-block conditional-dropdown"  *ngIf="op.type == 'CONDITIONAL'">
                             <button type="button" class="btn btn-outline-primary" id="conditional-op-{{index}}-{{op.index}}" tabindex="0" ngbDropdownToggle>
-                                <span aria-hidden="true">{{ op.value == '' ? 'Selecione a condição' : op.value }}</span>
-                                <span class="sr-only" tabindex="0">Selecione a condição</span>
+                                <span tabindex="0">{{ op.value == '' ? 'Selecione a condição' : op.value }}</span>
+                                <!-- <span class="sr-only" tabindex="0">Selecione a condição</span> -->
                             </button>
 
                             <div ngbDropdownMenu attr.aria-labelledby="conditional-op-{{index}}-{{op.index}}">
@@ -50,20 +50,20 @@
                                     <button type="button" class="btn btn-outline-primary" id="dropdown-conditional-{{index}}-{{op.index}}-aritmeticos"
                                         ngbDropdownToggle>Aritméticos</button>
                                     <div ngbDropdownMenu attr.aria-labelledby="dropdown-conditional-{{index}}-{{op.index}}-aritmeticos">
-                                        <button ngbDropdownItem (click)="changeConditional(op, '+')">
+                                        <button ngbDropdownItem (click)="changeConditional(op, '+', op.index)">
                                             <span>&#43;</span>
                                         </button>
-                                        <button ngbDropdownItem (click)="changeConditional(op, '-')">
+                                        <button ngbDropdownItem (click)="changeConditional(op, '-', op.index)">
                                             <span>&minus;</span>
                                         </button>
-                                        <button ngbDropdownItem (click)="changeConditional(op, '*')">
+                                        <button ngbDropdownItem (click)="changeConditional(op, '*', op.index)">
                                             <span aria-hidden="true">&lowast;</span>
                                             <span aria-hidden="false" class="sr-only">multiplicação</span>
                                         </button>
-                                        <button ngbDropdownItem (click)="changeConditional(op, '/')">
-                                            <span>&frasl;</span>
+                                        <button ngbDropdownItem (click)="changeConditional(op, '/', op.index)">
+                                            <span>&divide;</span>
                                         </button>
-                                        <button ngbDropdownItem (click)="changeConditional(op, '%')">
+                                        <button ngbDropdownItem (click)="changeConditional(op, '%', op.index)">
                                             <span>%</span>
                                         </button>
                                     </div>
@@ -72,16 +72,16 @@
                                     <button type="button" class="btn btn-outline-primary" id="dropdown-conditional-{{index}}-{{op.index}}-logicos"
                                         ngbDropdownToggle>Lógicos</button>
                                     <div ngbDropdownMenu attr.aria-labelledby="dropdown-conditional-{{index}}-{{op.index}}-logicos">
-                                        <button ngbDropdownItem (click)="changeConditional(op, '==')">
+                                        <button ngbDropdownItem (click)="changeConditional(op, '==', op.index)">
                                             <span>&#61;&#61;</span>
                                         </button>
-                                        <button ngbDropdownItem (click)="changeConditional(op, 'E')">
+                                        <button ngbDropdownItem (click)="changeConditional(op, 'E', op.index)">
                                             <span>E</span>
                                         </button>
-                                        <button ngbDropdownItem (click)="changeConditional(op, 'OU')">
+                                        <button ngbDropdownItem (click)="changeConditional(op, 'OU', op.index)">
                                             <span>OU</span>
                                         </button>
-                                        <button ngbDropdownItem (click)="changeConditional(op, 'nao')">
+                                        <button ngbDropdownItem (click)="changeConditional(op, 'nao', op.index)">
                                             <span>nao</span>
                                         </button>
                                     </div>
@@ -90,23 +90,23 @@
                                     <button type="button" class="btn btn-outline-primary" id="dropdown-conditional-{{index}}-{{op.index}}-relacionais"
                                         ngbDropdownToggle>Relacionais</button>
                                     <div ngbDropdownMenu attr.aria-labelledby="dropdown-conditional-{{index}}-{{op.index}}-relacionais">
-                                        <button ngbDropdownItem (click)="changeConditional(op, '>')">
+                                        <button ngbDropdownItem (click)="changeConditional(op, '>', op.index)">
                                             <span>&#62;</span>
                                         </button>
-                                        <button ngbDropdownItem (click)="changeConditional(op, '<')">
+                                        <button ngbDropdownItem (click)="changeConditional(op, '<', op.index)">
                                             <span>&#60;</span>
                                         </button>
-                                        <button ngbDropdownItem (click)="changeConditional(op, '==')">
+                                        <button ngbDropdownItem (click)="changeConditional(op, '==', op.index)">
                                             <span>&#61;&#61;</span>
                                         </button>
-                                        <button ngbDropdownItem (click)="changeConditional(op, '!=')">
+                                        <button ngbDropdownItem (click)="changeConditional(op, '!=', op.index)">
                                             <span aria-hidden="true">!&#61;</span>
                                             <span aria-hidden="false" class="sr-only">Exclamação, igual operador diferente de</span>
                                         </button>
-                                        <button ngbDropdownItem (click)="changeConditional(op, '>=')">
+                                        <button ngbDropdownItem (click)="changeConditional(op, '>=', op.index)">
                                             <span>&#8805;</span>
                                         </button>
-                                        <button ngbDropdownItem (click)="changeConditional(op, '<=')">
+                                        <button ngbDropdownItem (click)="changeConditional(op, '<=', op.index)">
                                             <span>&#8804;</span>
                                         </button>
                                     </div>

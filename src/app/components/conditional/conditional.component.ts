@@ -99,9 +99,10 @@ export class ConditionalComponent implements OnInit {
     });
   }
 
-  changeConditional(element: any, condition: any) {
+  changeConditional(element: any, condition: any, index: any) {
     element.value = condition;
     this.changeValue();
+    this.focusConditional(index+1);
   }
 
   toggleHidden(){

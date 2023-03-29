@@ -10,8 +10,8 @@
             <div class="row row-cols-2">
                 <div class="col">
                     <div class="d-flex justify-content-center align-items-center pl-3">
-                        <span>repita_para</span>
-                        <select id="for-select-var-{{index}}" class="ml-2 col form-select" [(ngModel)]="for.variable"  id="for-select-{{index}}">
+                        <span class="blue"  id="for-select-{{index}}" tabindex="-1">repita_para</span>
+                        <select id="for-select-var-{{index}}" class="ml-2 col form-select" [(ngModel)]="for.variable" >
                             <option *ngIf="!variables.length" disabled [ngValue]="''">Ainda não existem variáveis
                                 criadas!</option>
                             <option *ngIf="variables.length" disabled [ngValue]="''">Selecione a variável</option>

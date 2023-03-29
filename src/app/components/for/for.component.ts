@@ -100,7 +100,7 @@ export class ForComponent implements OnInit {
   }
 
   formatCommands() {
-    this.commandsPlainText = `<p class="mb-0">repita_para ${this.for.variable} de ${this.for.variable} ate  ${this.for.variable} passo  ${this.for.incrementType}${this.for.incrementValue} {</p>`;
+    this.commandsPlainText = `<p class="mb-0">repita_para ${this.for.variable} de ${this.for.variable} <span tabindex="-1">até</span>  ${this.for.variable} passo  ${this.for.incrementType}${this.for.incrementValue} {</p>`;
     this.commandsPlainText += `<p>${this.runCommands(this.for.components)}</p>`;
     this.commandsPlainText += `<p>}</p>`;
   }
