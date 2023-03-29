@@ -46,9 +46,9 @@ export class OperatorComponent implements OnInit {
     this.focusOperator(this.operators.length - 1);
   }
 
-  focusOperator(index: any) {
+  focusOperator(indexOp: any) {
     setTimeout(() => {
-      let operatorElement = document.getElementById(`operator-op-${index}`);
+      let operatorElement = document.getElementById(`operator-op-${this.index}-${indexOp}`);
 
       if (operatorElement) {
         operatorElement.focus();

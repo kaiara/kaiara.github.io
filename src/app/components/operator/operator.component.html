@@ -33,7 +33,7 @@
 
             <div class="d-flex align-items-center" *ngFor="let op of operators; let i = index">
                 <div class="col">
-                    <select class="ml-1 form-select" id="operator-op-{{op.index}}" *ngIf="op.type == 'PARENTHESIS'" [(ngModel)]="op.value" (change)="changeValue()">
+                    <select class="ml-1 form-select" id="operator-op-{{index}}-{{op.index}}" *ngIf="op.type == 'PARENTHESIS'" [(ngModel)]="op.value" (change)="changeValue()">
                         <option disabled [ngValue]="''">Selecione o parêntese</option>
                         <option [ngValue]="'('" title="abre parênteses">(</option>
                         <option [ngValue]="')'" title="fecha parênteses">)</option>
@@ -41,7 +41,7 @@
                 </div>
 
                 <div class="col">
-                    <select class="ml-1 form-select" id="operator-op1-{{op.index}}" *ngIf="op.type == 'ATTRIBUTE' || op.type == 'VARIABLE' || op.type == 'VALUE'" [(ngModel)]="op.type" (change)="clearValue(op)">
+                    <select class="ml-1 form-select" id="operator-op1-{{index}}-{{op.index}}" *ngIf="op.type == 'ATTRIBUTE' || op.type == 'VARIABLE' || op.type == 'VALUE'" [(ngModel)]="op.type" (change)="clearValue(op)">
                         <option [ngValue]="'ATTRIBUTE'" disabled>Selecione</option>
                         <option [ngValue]="'VARIABLE'">Variável</option>
                         <option [ngValue]="'VALUE'">Valor</option>
@@ -49,7 +49,7 @@
                 </div>
 
                 <div class="col">
-                    <select class="ml-1 form-select" *ngIf="op.type == 'VARIABLE'" id="operator-op-{{op.index}}" [(ngModel)]="op.value" (change)="changeValue()">
+                    <select class="ml-1 form-select" *ngIf="op.type == 'VARIABLE'" id="operator-op-{{index}}-{{op.index}}" [(ngModel)]="op.value" (change)="changeValue()">
                         <option *ngIf="getVariables().length && op.value == ''" disabled [ngValue]="''">Selecione a variável</option>
                         <option *ngIf="!getVariables().length" disabled [ngValue]="''">Ainda não existem variáveis criadas!</option>
                         <option *ngFor="let v of getVariables()" [ngValue]="v.value.name">{{v.value.name}}</option>
@@ -57,7 +57,7 @@
                 </div>
 
                 <div class="col">
-                    <input class="ml-1 form-control" id="operator-op-{{op.index}}" *ngIf="op.type == 'VALUE' && currentVariable.type != 'BOOLEAN'"
+                    <input class="ml-1 form-control" id="operator-op-{{index}}-{{op.index}}" *ngIf="op.type == 'VALUE' && currentVariable.type != 'BOOLEAN'"
                         [(ngModel)]="op.value" (keyup)="changeInputValue(op)" type="text" placeholder="Digite o valor" />
 
                     <select class="ml-1 form-select" *ngIf="op.type == 'VALUE' && currentVariable.type == 'BOOLEAN'" id="operator-op-{{op.index}}" [(ngModel)]="op.value" (change)="changeValue()">
@@ -69,7 +69,7 @@
 
     
                 <div class="col">
-                    <select class="form-select" id="operator-op-{{op.index}}" *ngIf="op.type == 'OPERATOR'" [(ngModel)]="op.value" (change)="changeValue()">
+                    <select class="form-select" id="operator-op-{{index}}-{{op.index}}" *ngIf="op.type == 'OPERATOR'" [(ngModel)]="op.value" (change)="changeValue()">
                         <option [ngValue]="''" disabled *ngIf="op.value == ''">Selecione a operação</option>
                         <option [ngValue]="'+'">
                             <span class="sr-only">&#43;</span>
@@ -78,7 +78,7 @@
                             <span class="sr-only">&minus;</span>
                         </option>
                         <option [ngValue]="'*'">
-                            <span aria-hidden="true">&lowast;</span>
+                            <span aria-hidden="true"><strong>&lowast;</strong></span>
                             <span aria-hidden="false" class="sr-only">multiplicação</span>
                         </option>
                         <option [ngValue]="'/'">
@@ -93,7 +93,7 @@
             </div>
 
             <div ngbDropdown class="d-flex align-items-center" *ngIf="currentVariable">
-                <button type="button" class="btn btn-outline-primary" id="dropdownAdd" ngbDropdownToggle>
+                <button type="button" class="btn btn-primary" id="dropdownAdd" ngbDropdownToggle>
                     <span aria-hidden="true">+</span>
                     <strong aria-hidden="false" class="sr-only">Adicionar</strong>
                 </button>
