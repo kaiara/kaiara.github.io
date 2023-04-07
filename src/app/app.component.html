@@ -2,102 +2,95 @@
   <div class="d-flex justify-content-center mt-5">
     <div class="back-blue col-xl-10 col-lg-11 col-md-12 mt-5 rounded">
       <nav class="navbar navbar-expand-md navbar-dark p-4">
-        <header><h1><strong>iVProg Acessível</strong></h1></header>
+        <header>
+          <h1><strong>iVProg Acessível</strong></h1>
+        </header>
         <!-- <button (click)="changeLanguage('pt')">{{ "GENERAL.LANGUAGES.PORTUGUESE" | translate }}</button>
         <button (click)="changeLanguage('en')">{{ "GENERAL.LANGUAGES.ENGLISH" | translate }}</button> -->
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" accesskey="ALT + I" href="#inicio" (click)="goToStart()" (keyup.space)="goToStart()" title="ALT + I Ir para função inicio"><span aria-hidden="true">Ir função inicio</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" accesskey="ALT + T"  href="#terminal" (click)="goToTerminal()" (keyup.space)="goToTerminal()" title="ALT + T Ir para para o terminal"><span aria-hidden="true">Ir para o terminal</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" accesskey="ALT + C"  href="#comands" (click)="goToComands()" (keyup.space)="goToComands()" title="ALT + C Ir para a lista de comandos"><span aria-hidden="true">Ir para a lista de comandos</span></a>
-                </li>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" accesskey="ALT + I" href="#inicio" (click)="goToStart()" (keyup.space)="goToStart()"
+                title="ALT + I Ir para função inicio"><span aria-hidden="true">Ir função inicio</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" accesskey="ALT + T" href="#terminal" (click)="goToTerminal()"
+                (keyup.space)="goToTerminal()" title="ALT + T Ir para para o terminal"><span aria-hidden="true">Ir para
+                  o terminal</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" accesskey="ALT + C" href="#comands" (click)="goToComands()"
+                (keyup.space)="goToComands()" title="ALT + C Ir para a lista de comandos"><span aria-hidden="true">Ir
+                  para a lista de comandos</span></a>
+            </li>
 
-                <li class="nav-item">
-                  <a class="nav-link" accesskey="ALT + E"  href="#comands" (click)="goToExecut()" (keyup.space)="goToExecut()" title="ALT + E Ir executar programa"><span aria-hidden="true">Executar programa</span></a>
-              </li>
-            </ul>
+            <li class="nav-item">
+              <a class="nav-link" accesskey="ALT + C" href="#comands" (click)="goToExecut()"
+                (keyup.space)="goToExecut()" title="ALT + E Ir executar programa"><span aria-hidden="true">Executar
+                  programa</span></a>
+            </li>
+          </ul>
         </div>
-    </nav>
+      </nav>
+      <section>
+        <div class="col-12 px-4">
+          <fieldset>
+            <legend class="p-1">
+              <h2 tabindex="0" id="inicio"><strong>Função início</strong></h2>
+            </legend>
 
-      <div class="col-12 px-4">
-        <fieldset>
-          <legend class="p-1">
-            <h2 tabindex="0" id="inicio"><strong>Função início</strong></h2>
-          </legend>
+            <div class="row">
+              <div class="col-12 pt-1 pb-4 px-4" style="text-align: right;">
+                <div class="px-4 py-1">
+                  <div *ngFor="let component of components; let i = index;">
+                    <app-variable *ngIf="isVariable(component)" [index]="i" [variable]="component.value"
+                      [components]="components" [variables]="getVariables()" (remove)="removeComponent($event)">
+                    </app-variable>
 
-          <div class="row">
-            <div class="col-12 pt-1 pb-4 px-4" style="text-align: right;">
-              <div class="px-4 py-1">
-                <div *ngFor="let component of components; let i = index;">
-                  <app-variable *ngIf="isVariable(component)" 
-                    [index]="i" 
-                    [variable]="component.value"
-                    [components]="components" 
-                    [variables]="getVariables()"
-                    (remove)="removeComponent($event)">
-                  </app-variable>
+                    <app-write *ngIf="isWriter(component)" [index]="i" [writer]="component.value"
+                      [components]="components" [variables]="getVariables()" (remove)="removeComponent($event)">
+                    </app-write>
 
-                  <app-write *ngIf="isWriter(component)" 
-                    [index]="i" 
-                    [writer]="component.value"
-                    [components]="components"
-                    [variables]="getVariables()" 
-                    (remove)="removeComponent($event)">
-                  </app-write>
+                    <app-operator *ngIf="isOperator(component)" [index]="i" [operator]="component.value"
+                      [components]="components" [variables]="getVariables()" (remove)="removeComponent($event)">
+                    </app-operator>
 
-                  <app-operator *ngIf="isOperator(component)" 
-                    [index]="i" 
-                    [operator]="component.value"
-                    [components]="components"
-                    [variables]="getVariables()" 
-                    (remove)="removeComponent($event)">
-                  </app-operator>
+                    <app-conditional *ngIf="isConditional(component)" [index]="i" [conditional]="component.value"
+                      [components]="components" [variables]="getVariables()" (remove)="removeComponent($event)">
+                    </app-conditional>
 
-                  <app-conditional *ngIf="isConditional(component)"
-                    [index]="i" 
-                    [conditional]="component.value"
-                    [components]="components"
-                    [variables]="getVariables()" 
-                    (remove)="removeComponent($event)">
-                  </app-conditional>
-
-                  <app-for *ngIf="isFor(component)"
-                    [index]="i" 
-                    [for]="component.value"
-                    [components]="components"
-                    [variables]="getVariables()" 
-                    (remove)="removeComponent($event)">
-                  </app-for>
-                </div>
-              </div>
-
-              <div id="botoes" class="btn-group pt-4">
-                <div class="row">
-                  <div class="col">
-                    <app-command-button [components]="components" [variables]="getVariables()"></app-command-button>
+                    <app-for *ngIf="isFor(component)" [index]="i" [for]="component.value" [components]="components"
+                      [variables]="getVariables()" (remove)="removeComponent($event)">
+                    </app-for>
                   </div>
                 </div>
-                <button class="btn btn-success p-3" id="runCodeButton" type="button" (click)="run()">
-                  Executar
-                  <span class="bi bi-play-fill mt-3 space-icon"></span>
-                </button>
-                <button class="btn btn-danger p-3" id="cleanCommands" type="button" (click)="clear()">
-                  Excluir comandos
-                  <span class="bi bi-trash-fill space-icon"></span>
-                </button>
+
+                <div id="botoes" class="btn-group pt-4">
+                  <div class="row">
+                    <div class="col">
+                      <app-command-button [components]="components" [variables]="getVariables()"></app-command-button>
+                    </div>
+                  </div>
+                  <button class="btn btn-success p-3" id="runCodeButton" type="button" (click)="run()">
+                    Executar
+                    <span class="bi bi-play-fill mt-3 space-icon"></span>
+                  </button>
+                  <button class="btn btn-danger p-3" id="cleanCommands" type="button" (click)="clear()">
+                    Excluir comandos
+                    <span class="bi bi-trash-fill space-icon"></span>
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </fieldset>
-      </div>
+          </fieldset>
+        </div>
+      </section>
 
-      <div class="col-12">
-        <app-terminal [isRunning]="isRunning"></app-terminal>
-      </div>
+      <footer>
+        <div class="col-12">
+          <app-terminal [isRunning]="isRunning"></app-terminal>
+        </div>
+      </footer>
+
     </div>
   </div>
