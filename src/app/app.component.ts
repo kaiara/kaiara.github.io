@@ -1,4 +1,5 @@
 import { Component, ElementRef, HostListener, QueryList, ViewChildren } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { TypesEnum } from './enums/types.enum';
 declare var vcat: any;
 
@@ -14,6 +15,27 @@ export class AppComponent {
   isRunning: boolean = false;
 
   @ViewChildren('input') inputs!: QueryList<ElementRef>;
+
+  constructor(public translate: TranslateService) {
+    
+  }
+
+  ngOnInit(): void {
+    let defaultLang: any = sessionStorage.getItem("defaultLang");
+
+    if(!defaultLang || defaultLang == null || defaultLang == "") {
+      defaultLang = "pt"
+    }
+    
+    this.translate.addLangs(['pt', 'en']);
+    this.translate.setDefaultLang(defaultLang);
+    this.translate.use(defaultLang);
+  }
+
+  changeLanguage(language: string) {
+    sessionStorage.setItem("defaultLang", language);
+    this.translate.use(language);
+  }
 
   getVariables() {
     return this.components ? this.components.filter(c => c.type == TypesEnum.VARIABLE) : [];
@@ -64,22 +86,23 @@ export class AppComponent {
   }
 
   runCommands(components: any) {
+    const currentLang = this.translate.currentLang;
     let programComands = "";
 
     // Only variables first
     components.filter((c: any) => c.type == TypesEnum.VARIABLE).forEach((c: any) => {
       switch (c.value.type) {
         case "INTEGER":
-          programComands += `inteiro ${c.value.name} <- ${c.value.value} \n`;
+          programComands += `${currentLang == 'pt' ? 'inteiro' : 'int'} ${c.value.name} <- ${c.value.value} \n`;
           break;
         case "DOUBLE":
-          programComands += `real ${c.value.name} <- ${c.value.value} \n`;
+          programComands += `${currentLang == 'pt' ? 'real' : 'real'} ${c.value.name} <- ${c.value.value} \n`;
           break;
         case "BOOLEAN":
-          programComands += `logico ${c.value.name} <- ${c.value.value} \n`;
+          programComands += `${currentLang == 'pt' ? 'logico' : 'bool'} ${c.value.name} <- ${c.value.value} \n`;
           break;
         case "STRING":
-          programComands += `cadeia ${c.value.name} <- "${c.value.value}" \n`;
+          programComands += `${currentLang == 'pt' ? 'cadeia' : 'string'} ${c.value.name} <- "${c.value.value}" \n`;
           break;
         default:
           break;
@@ -90,9 +113,9 @@ export class AppComponent {
     components.filter((c: any) => c.type != TypesEnum.VARIABLE).forEach((c: any) => {
       if(c.type == TypesEnum.WRITER) {
         if(c.value.type == TypesEnum.VARIABLE) {
-          programComands += `escreva(${c.value.value}) \n`;
+          programComands += `${currentLang == 'pt' ? 'escreva' : 'write'}(${c.value.value}) \n`;
         } else {
-          programComands += `escreva("${c.value.value}") \n`;
+          programComands += `${currentLang == 'pt' ? 'escreva' : 'write'}("${c.value.value}") \n`;
         }
       }
 
@@ -101,15 +124,15 @@ export class AppComponent {
       }
 
       if(c.type == TypesEnum.CONDITIONAL) {
-        programComands += `se ( ${c.value.condition.value} ) { \n`;
+        programComands += `${currentLang == 'pt' ? 'se' : 'id'} ( ${c.value.condition.value} ) { \n`;
         programComands += this.runCommands(c.value.condition.components);
-        programComands += `} senao { \n`;
+        programComands += `} ${currentLang == 'pt' ? 'senao' : 'else'} { \n`;
         programComands += this.runCommands(c.value.nocondition.components);
         programComands += `} \n`;
       }
 
       if(c.type == TypesEnum.FOR_CODITIONAL) {
-        programComands += `repita_para ${c.value.variable} de ${c.value.startValue} ate ${c.value.finishValue} passo ${c.value.incrementType}${c.value.incrementValue} { \n`;
+        programComands += `${currentLang == 'pt' ? 'repita_para' : 'repeat_for'} ${c.value.variable} ${currentLang == 'pt' ? 'de' : 'from'} ${c.value.startValue} ${currentLang == 'pt' ? 'ate' : 'to'} ${c.value.finishValue} ${currentLang == 'pt' ? 'passo' : 'pass'} ${c.value.incrementType}${c.value.incrementValue} { \n`;
         programComands += this.runCommands(c.value.components);
         programComands += `} \n`;
       }
@@ -119,14 +142,24 @@ export class AppComponent {
   }
 
   run() {
+    const currentLang = this.translate.currentLang;
     let programComands = this.runCommands(this.components);
 
-    let programSintax = `
+    let programSintaxPt = `
     programa { 
       funcao vazio inicio () { 
         ${programComands}
       } 
     }`;
+
+    let programSintaxEn = `
+    program { 
+      function void main () { 
+        ${programComands}
+      } 
+    }`;
+
+    let programSintax = currentLang == 'pt' ? programSintaxPt : programSintaxEn;
 
     // Exemplo de uso
     // programSintax = `programa {
@@ -159,6 +192,7 @@ export class AppComponent {
 
     try {
       this.clearTerminal();
+      vcat.LocalizedStrings.service.setLang(this.translate.currentLang);
       const ast = vcat.SemanticAnalyser.analyseFromSource(programSintax);
       const proc = new vcat.IVProgProcessor(ast);
       // Registrando um objeto que fornece o minimo necessário para o processador

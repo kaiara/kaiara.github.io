@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { TypesEnum } from 'src/app/enums/types.enum';
 
 @Component({
@@ -33,7 +34,7 @@ export class ForComponent implements OnInit {
 
   @Output("remove") remove = new EventEmitter();
 
-  constructor() { }
+  constructor(public translate: TranslateService) { }
 
   ngOnInit(): void {
   }
@@ -100,21 +101,23 @@ export class ForComponent implements OnInit {
   }
 
   formatCommands() {
-    this.commandsPlainText = `<p class="mb-0">repita_para ${this.for.variable} de ${this.for.variable} <span tabindex="-1">até</span>  ${this.for.variable} passo  ${this.for.incrementType}${this.for.incrementValue} {</p>`;
+    const currentLang = this.translate.currentLang;
+    this.commandsPlainText = `<p class="mb-0">${currentLang == 'pt' ? 'repita_para' : 'repeat_for'} ${this.for.variable} ${currentLang == 'pt' ? 'de' : 'from'} ${this.for.variable} <span tabindex="-1">${currentLang == 'pt' ? 'ate' : 'to'}</span>  ${this.for.variable} ${currentLang == 'pt' ? 'passo' : 'pass'} ${this.for.incrementType}${this.for.incrementValue} {</p>`;
     this.commandsPlainText += `<p>${this.runCommands(this.for.components)}</p>`;
     this.commandsPlainText += `<p>}</p>`;
   }
 
   runCommands(components: any) {
+    const currentLang = this.translate.currentLang;
     let programComands = "";
 
     // Other components except variable types
     components.filter((c: any) => c.type != TypesEnum.VARIABLE).forEach((c: any) => {
       if(c.type == TypesEnum.WRITER) {
         if(c.value.type == TypesEnum.VARIABLE) {
-          programComands += `&emsp; escreva(${c.value.value}) <br/>`;
+          programComands += `&emsp; ${currentLang == 'pt' ? 'escreva' : 'write'}(${c.value.value}) <br/>`;
         } else {
-          programComands += `&emsp; escreva("${c.value.value}") <br/>`;
+          programComands += `&emsp; ${currentLang == 'pt' ? 'escreva' : 'write'}("${c.value.value}") <br/>`;
         }
       }
 
@@ -123,10 +126,16 @@ export class ForComponent implements OnInit {
       }
 
       if(c.type == TypesEnum.CONDITIONAL) {
-        programComands += `&emsp; se ( ${c.value.condition.value} ) { <br/>`;
+        programComands += `&emsp; ${currentLang == 'pt' ? 'se' : 'if'} ( ${c.value.condition.value} ) { <br/>`;
         programComands += `&emsp; ${this.runCommands(c.value.condition.components)}`;
-        programComands += `&emsp; } senao { <br/>`;
+        programComands += `&emsp; } ${currentLang == 'pt' ? 'senao' : 'else'} { <br/>`;
         programComands += `&emsp; ${this.runCommands(c.value.nocondition.components)}`;
+        programComands += `&emsp; } <br/>`;
+      }
+
+      if(c.type == TypesEnum.FOR_CODITIONAL) {
+        programComands += `&emsp; ${currentLang == 'pt' ? 'repita_para' : 'repeat_for'} ${c.value.variable} ${currentLang == 'pt' ? 'de' : 'from'} ${c.value.startValue} ${currentLang == 'pt' ? 'ate' : 'to'} ${c.value.finishValue} ${currentLang == 'pt' ? 'passo' : 'pass'} ${c.value.incrementType}${c.value.incrementValue} { <br/>`;
+        programComands += `&emsp; ${this.runCommands(c.value.components)}`;
         programComands += `&emsp; } <br/>`;
       }
     });

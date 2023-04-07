@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { TypesEnum } from 'src/app/enums/types.enum';
 
 @Component({
@@ -31,7 +32,7 @@ export class ConditionalComponent implements OnInit {
 
   @Output("remove") remove = new EventEmitter();
 
-  constructor() { }
+  constructor(public translate: TranslateService) { }
 
   ngOnInit(): void {
     this.clear();
@@ -122,23 +123,25 @@ export class ConditionalComponent implements OnInit {
   }
 
   formatCommands() {
-    this.commandsPlainText = `se ( ${this.conditional.condition.value} ) { <br/>`;
+    const currentLang = this.translate.currentLang;
+    this.commandsPlainText = `${currentLang == 'pt' ? 'se' : 'if'} ( ${this.conditional.condition.value} ) { <br/>`;
     this.commandsPlainText += `${this.runCommands(this.conditional.condition.components)}`;
-    this.commandsPlainText += `} senao { <br/>`;
+    this.commandsPlainText += `} ${currentLang == 'pt' ? 'senao' : 'else'} { <br/>`;
     this.commandsPlainText += `${this.runCommands(this.conditional.nocondition.components)}`;
     this.commandsPlainText += `} <br/>`;
   }
 
   runCommands(components: any) {
+    const currentLang = this.translate.currentLang;
     let programComands = "";
 
     // Other components except variable types
     components.filter((c: any) => c.type != TypesEnum.VARIABLE).forEach((c: any) => {
       if(c.type == TypesEnum.WRITER) {
         if(c.value.type == TypesEnum.VARIABLE) {
-          programComands += `&emsp; escreva(${c.value.value}) <br/>`;
+          programComands += `&emsp; ${currentLang == 'pt' ? 'escreva' : 'write'}(${c.value.value}) <br/>`;
         } else {
-          programComands += `&emsp; escreva("${c.value.value}") <br/>`;
+          programComands += `&emsp; ${currentLang == 'pt' ? 'escreva' : 'write'}("${c.value.value}") <br/>`;
         }
       }
 
@@ -147,10 +150,16 @@ export class ConditionalComponent implements OnInit {
       }
 
       if(c.type == TypesEnum.CONDITIONAL) {
-        programComands += `&emsp; se ( ${c.value.condition.value} ) { <br/>`;
+        programComands += `&emsp; ${currentLang == 'pt' ? 'se' : 'if'} ( ${c.value.condition.value} ) { <br/>`;
         programComands += `&emsp; ${this.runCommands(c.value.condition.components)}`;
-        programComands += `&emsp; } senao { <br/>`;
+        programComands += `&emsp; } ${currentLang == 'pt' ? 'senao' : 'else'} { <br/>`;
         programComands += `&emsp; ${this.runCommands(c.value.nocondition.components)}`;
+        programComands += `&emsp; } <br/>`;
+      }
+
+      if(c.type == TypesEnum.FOR_CODITIONAL) {
+        programComands += `&emsp; ${currentLang == 'pt' ? 'repita_para' : 'repeat_for'} ${c.value.variable} ${currentLang == 'pt' ? 'de' : 'from'} ${c.value.startValue} ${currentLang == 'pt' ? 'ate' : 'to'} ${c.value.finishValue} ${currentLang == 'pt' ? 'passo' : 'pass'} ${c.value.incrementType}${c.value.incrementValue} { <br/>`;
+        programComands += `&emsp; ${this.runCommands(c.value.components)}`;
         programComands += `&emsp; } <br/>`;
       }
     });
