@@ -8,7 +8,7 @@
 
     <div *ngIf="isHidden" class="col-lg-9 d-flex justify-content-start">
         <div class="col col-xs-12 d-flex align-items-center">
-            <label for="receive" tabindex="0" title="Recebe">Escreve</label>
+            <span for="receive" tabindex="0" title="Recebe">Escreve</span>
         </div>
 
         <select [id]="'write-type-' + idElement" [(ngModel)]="writer.type" (change)="changeType()" class="ml-3 form-select">
