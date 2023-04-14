@@ -86,7 +86,7 @@ export class AppComponent {
   }
 
   runCommands(components: any) {
-    const currentLang = this.translate.currentLang;
+    const currentLang = "pt";
     let programComands = "";
 
     // Only variables first
@@ -142,7 +142,7 @@ export class AppComponent {
   }
 
   run() {
-    const currentLang = this.translate.currentLang;
+    const currentLang = "pt";
     let programComands = this.runCommands(this.components);
 
     let programSintaxPt = `
@@ -192,7 +192,7 @@ export class AppComponent {
 
     try {
       this.clearTerminal();
-      vcat.LocalizedStrings.service.setLang(this.translate.currentLang);
+      vcat.LocalizedStrings.service.setLang("pt");
       const ast = vcat.SemanticAnalyser.analyseFromSource(programSintax);
       const proc = new vcat.IVProgProcessor(ast);
       // Registrando um objeto que fornece o minimo necessário para o processador

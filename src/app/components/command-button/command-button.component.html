@@ -1,14 +1,14 @@
 <div ngbDropdown class="d-inline-block {{ mode }}">
     <button id="comands" type="button" class="dropdown btn btn-primary p-3" ngbDropdownToggle title="{{title}}">
-        <span *ngIf="text == true">Comandos</span>
+        <span *ngIf="text == true">{{ "COMANDS.TITLE" | translate }}</span>
         <span *ngIf="text == false && iconComands ==true" class="bi bi-code-slash"></span>
         <span *ngIf="text == false && iconComands == false" class="bi bi-code-slash"></span>
     </button>
     <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-        <button ngbDropdownItem *ngIf="hasVariables" (click)="addVariable()">Nova Variável</button>
-        <button ngbDropdownItem (click)="addOperator()">Atribuição/Matemática</button>
-        <button ngbDropdownItem (click)="addWriter()">Escreva</button>
-        <button ngbDropdownItem (click)="addConditional()">Se…Então</button>
-        <button ngbDropdownItem (click)="addFor()">Repita N Vezes</button>
+        <button ngbDropdownItem *ngIf="hasVariables" (click)="addVariable()">{{ "COMANDS.BUTTON.NEW_VARIABLE" | translate }}</button>
+        <button ngbDropdownItem (click)="addOperator()">{{ "COMANDS.BUTTON.MATH" | translate }}</button>
+        <button ngbDropdownItem (click)="addWriter()">{{ "COMANDS.BUTTON.WRITE" | translate }} </button>
+        <button ngbDropdownItem (click)="addConditional()">{{ "COMANDS.BUTTON.IF" | translate }}</button>
+        <button ngbDropdownItem (click)="addFor()">{{ "COMANDS.BUTTON.WHILE" | translate }}</button>
     </div>
 </div>

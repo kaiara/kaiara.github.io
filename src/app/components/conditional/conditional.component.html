@@ -18,8 +18,8 @@
                     <div class="col">
                         <select class="form-select" id="conditional-op-{{index}}-{{op.index}}" *ngIf="op.type != 'CONDITIONAL'"
                             [(ngModel)]="op.type" (change)="clearValue(op)">
-                            <option [ngValue]="''" selected>Selecione</option>
-                            <option [ngValue]="'VARIABLE'">Variável</option>
+                            <option [ngValue]="''" selected>{{ "GENERAL.SELECT" | translate }}</option>
+                            <option [ngValue]="'VARIABLE'">{{ "GENERAL.VARIABLE" | translate }}</option>
                             <option [ngValue]="'VALUE'">Valor</option>
                         </select>
                     </div>
@@ -27,8 +27,8 @@
                     <div class="col">
                         <select id="conditional-op-{{index}}-{{op.index}}" class="ml-2 form-select" *ngIf="op.type == 'VARIABLE'" 
                             [(ngModel)]="op.value" (change)="changeValue()">
-                            <option *ngIf="!variables.length" disabled [ngValue]="''">Ainda não existem variáveis criadas!</option>
-                            <option *ngIf="variables.length && op.value ==''" disabled [ngValue]="''">Selecione a variável</option>
+                            <option *ngIf="!variables.length" disabled [ngValue]="''">{{ "GENERAL.NOT_VARIABLE" | translate }}</option>
+                            <option *ngIf="variables.length && op.value ==''" disabled [ngValue]="''">{{ "GENERAL.SELECT_VARIABLE" | translate }}</option>
                             <option *ngFor="let v of variables" [ngValue]="v.value.name">{{v.value.name}}</option>
                         </select>
                     </div>
@@ -156,11 +156,11 @@
                 [variables]="variables"
             ></app-command-button>
             <button class="btn btn-transparent" (click)="toggleHidden()">
-                <span *ngIf="isHidden" class="bi bi-unlock-fill" title="Ler código"><span class="sr-only">Ler código</span></span>
-                <span *ngIf="!isHidden" class="bi bi-lock-fill" title="Editar código"><span class="sr-only">Editar código</span></span>
+                <span *ngIf="isHidden" class="bi bi-unlock-fill"  [title]="'GENERAL.READ_CODE' | translate"><span class="sr-only">{{ "GENERAL.READ_CODE" | translate }}</span></span>
+                <span *ngIf="!isHidden" class="bi bi-lock-fill" [title]="'GENERAL.READ_EDIT' | translate"><span class="sr-only">{{ "GENERAL.READ_EDIT" | translate }}</span></span>
             </button>
 
-            <button class="btn btn-transparent text-danger pr-2" (click)="removeConditional()" title="Remover comandos"><span aria-hidden="true">X</span></button>
+            <button class="btn btn-transparent text-danger pr-2" (click)="removeConditional()" [title]="'GENERAL.REMOVE_COMANDS' | translate "><span aria-hidden="true">X</span></button>
         </div>
 
         <div *ngIf="isHidden" class="d-flex flex-column col-12 col-lg-12 conditional">

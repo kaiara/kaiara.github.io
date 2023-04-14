@@ -12,9 +12,8 @@
                     <div class="d-flex justify-content-center align-items-center pl-3">
                         <span class="blue"  id="for-select-{{index}}" tabindex="-1">repita_para</span>
                         <select id="for-select-var-{{index}}" class="ml-2 col form-select" [(ngModel)]="for.variable" >
-                            <option *ngIf="!variables.length" disabled [ngValue]="''">Ainda não existem variáveis
-                                criadas!</option>
-                            <option *ngIf="variables.length" disabled [ngValue]="''">Selecione a variável</option>
+                            <option *ngIf="!variables.length" disabled [ngValue]="''">{{ "GENERAL.NOT_VARIABLE" | translate }}</option>
+                            <option *ngIf="variables.length" disabled [ngValue]="''">{{ "GENERAL.SELECT_VARIABLE" | translate }}</option>
                             <option *ngFor="let v of variables" [ngValue]="v.value.name">{{v.value.name}}</option>
                         </select>
                     </div>
@@ -26,16 +25,15 @@
                         <span tabindex="0">De</span>
                         <select id="for-start-type-{{index}}" class="ml-1 form-select" [(ngModel)]="for.startType"  id="for-select-{{index}}"
                             (change)="clearStartValue()">
-                            <option [ngValue]="''" disabled>Selecione</option>
-                            <option [ngValue]="'VARIABLE'">Variável</option>
+                            <option [ngValue]="''" disabled>{{ "GENERAL.SELECT" | translate }}</option>
+                            <option [ngValue]="'VARIABLE'">{{ "GENERAL.VARIABLE" | translate }}</option>
                             <option [ngValue]="'VALUE'">Valor</option>
                         </select>
 
                         <select id="for-start-value-{{index}}" class="ml-1 form-select"
                             *ngIf="for.startType == 'VARIABLE'" [(ngModel)]="for.startValue">
-                            <option *ngIf="!variables.length" disabled [ngValue]="''">Ainda não existem variáveis
-                                criadas!</option>
-                            <option *ngIf="variables.length" disabled [ngValue]="''">Selecione a variável</option>
+                            <option *ngIf="!variables.length" disabled [ngValue]="''">{{ "GENERAL.NOT_VARIABLE" | translate }}</option>
+                            <option *ngIf="variables.length" disabled [ngValue]="''">{{ "GENERAL.SELECT_VARIABLE" | translate }}</option>
                             <option *ngFor="let v of variables" [ngValue]="v.value.name">{{v.value.name}}</option>
                         </select>
 
@@ -52,16 +50,15 @@
                         <span tabindex="0">Até</span>
                         <select id="for-finish-type-{{index}}" class="ml-1 form-select" [(ngModel)]="for.finishType"
                             (change)="clearFinishValue()">
-                            <option [ngValue]="''" disabled>Selecione</option>
-                            <option [ngValue]="'VARIABLE'">Variável</option>
+                            <option [ngValue]="''" disabled>{{ "GENERAL.SELECT" | translate }}</option>
+                            <option [ngValue]="'VARIABLE'">{{ "GENERAL.VARIABLE" | translate }}</option>
                             <option [ngValue]="'VALUE'">Valor</option>
                         </select>
 
                         <select id="for-finish-value-{{index}}" class="ml-1 form-select"
                             *ngIf="for.finishType == 'VARIABLE'" [(ngModel)]="for.finishValue">
-                            <option *ngIf="!variables.length" disabled [ngValue]="''">Ainda não existem variáveis
-                                criadas!</option>
-                            <option *ngIf="variables.length" disabled [ngValue]="''">Selecione a variável</option>
+                            <option *ngIf="!variables.length" disabled [ngValue]="''">{{ "GENERAL.NOT_VARIABLE" | translate }}</option>
+                            <option *ngIf="variables.length" disabled [ngValue]="''">{{ "GENERAL.SELECT_VARIABLE" | translate }}</option>
                             <option *ngFor="let v of variables" [ngValue]="v.value.name">{{v.value.name}}</option>
                         </select>
 
@@ -74,7 +71,7 @@
                     <div class="d-flex justify-content-center align-items-center pt-3 pb-3">
                         <select id="for-increment-type-{{index}}" class="ml-1 form-select"
                             [(ngModel)]="for.incrementType">
-                            <option [ngValue]="''" disabled>Selecione</option>
+                            <option [ngValue]="''" disabled>{{ "GENERAL.SELECT" | translate }}</option>
                             <option [ngValue]="'+'" title="incremento">++</option>
                             <option [ngValue]="'-'" title="decremento">&minus;&minus;</option>
                         </select>
@@ -119,13 +116,11 @@
             <app-command-button *ngIf="hasToggle" [mode]="'inline'" [text]="false" [title]="'Comandos'"
                 [components]="components" [variables]="variables"></app-command-button>
             <button class="btn btn-transparent"  (click)="toggleHidden()">
-                <span *ngIf="isHidden" class="bi bi-unlock-fill" title="Ler código"><span class="sr-only">Ler
-                        código</span></span>
-                <span *ngIf="!isHidden" class="bi bi-lock-fill" title="Editar código"><span class="sr-only">Editar
-                        código</span></span>
+                <span *ngIf="isHidden" class="bi bi-unlock-fill"  [title]="'GENERAL.READ_CODE' | translate"><span class="sr-only">{{ "GENERAL.READ_CODE" | translate }}</span></span>
+                <span *ngIf="!isHidden" class="bi bi-lock-fill" [title]="'GENERAL.READ_EDIT' | translate"><span class="sr-only">{{ "GENERAL.READ_EDIT" | translate }}</span></span>
             </button>
 
-            <button class="btn btn-transparent text-danger pr-2" (click)="removeFor()" title="Remover comandos"><span
+            <button class="btn btn-transparent text-danger pr-2" (click)="removeFor()" [title]="'GENERAL.REMOVE_COMANDS' | translate "><span
                     aria-hidden="true">X</span></button>
         </div>
 

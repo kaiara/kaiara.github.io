@@ -1,8 +1,58 @@
 {
-    "GENERAL": {
-        "LANGUAGES": {
-            "PORTUGUESE": "Português",
-            "ENGLISH": "Inglês"
-        }
+  "GENERAL": {
+    "TITLE": "Função início",
+    "RECEIVE": "recebe",
+    "READ_CODE": "Ler código",
+    "READ_EDIT": "Editar código",
+    "READ_DELETE":"Excluir Variável",
+    "TRUE": "verdadeiro",
+    "FALSE": "falso",
+    "LANGUAGES": {
+      "PORTUGUESE": "Português",
+      "ENGLISH": "Inglês"
+    },
+    "MENU": {
+      "START": "Ir função inicio",
+      "ALT_I": "ALT + I Ir para função inicio",
+      "TERMINAL": "Ir para o terminal",
+      "ALT_T": "ALT + T Ir para para o terminal",
+      "COMANDS": "Ir para a lista de comandos",
+      "ALT_C": "ALT + C Ir para a lista de comandos",
+      "PROGRAM": "Executar programa",
+      "ALT_E": "ALT + E Ir executar programa"
+    },
+    "BUTTON": {
+      "RUN": "Executar",
+      "DELETE": "Excluir comandos"
+    },
+    "WRITE": "Escreve",
+    "SELECT": "Selecione",
+    "VARIABLE": "Variável",
+    "TEXT": "Texto",
+    "NOT_VARIABLE": "Ainda não existem variáveis criadas!",
+    "DIGIT": "Digite o texto a ser imprimido",
+    "REMOVE_COMANDS": "Remover comandos",
+    "SELECt_VARIABLE":"Selecione a variável",
+    "SELECT_PAR": "Selecione o parêntese"
+  },
+  "COMANDS": {
+    "TITLE": "Comandos",
+    "BUTTON": {
+      "NEW_VARIABLE": "Nova Variável",
+      "MATH": "Atribuição/Matemática",
+      "WRITE": "Escreva",
+      "IF": "Se…Então",
+      "WHILE": "Repita N Vezes"
     }
+  },
+  "VARIABLE":{
+    "INT": "inteiro",
+    "REAL": "real",
+    "TEXT": "texto",
+    "LOGIC": "lógico",
+    "TYPE": "Tipo Variável"
+  },
+  "WRITE":{
+    "SELECT_OPERATION": "Selecione a variável para atribuir a operação"
+  }
 }
