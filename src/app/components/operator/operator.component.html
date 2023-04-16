@@ -35,8 +35,8 @@
                 <div class="col">
                     <select class="ml-1 form-select" id="operator-op-{{index}}-{{op.index}}" *ngIf="op.type == 'PARENTHESIS'" [(ngModel)]="op.value" (change)="changeValue()">
                         <option disabled [ngValue]="''">{{ "GENERAL.SELECT_PAR" | translate }}</option>
-                        <option [ngValue]="'('" title="abre parênteses">(</option>
-                        <option [ngValue]="')'" title="fecha parênteses">)</option>
+                        <option [ngValue]="'('" [title]="'GENERAL.OPEN_PARENTHESES' | translate">(</option>
+                        <option [ngValue]="')'" [title]="'GENERAL.CLOSE_PARENTHESES' | translate">)</option>
                     </select>
                 </div>
 
@@ -44,7 +44,7 @@
                     <select class="ml-1 form-select" id="operator-op1-{{index}}-{{op.index}}" *ngIf="op.type == 'ATTRIBUTE' || op.type == 'VARIABLE' || op.type == 'VALUE'" [(ngModel)]="op.type" (change)="clearValue(op)">
                         <option [ngValue]="'ATTRIBUTE'" disabled>{{ "GENERAL.SELECT" | translate }}</option>
                         <option [ngValue]="'VARIABLE'">{{ "GENERAL.VARIABLE" | translate }}</option>
-                        <option [ngValue]="'VALUE'">Valor</option>
+                        <option [ngValue]="'VALUE'">{{ "GENERAL.VALUE" | translate }}</option>
                     </select>
                 </div>
 
@@ -58,19 +58,19 @@
 
                 <div class="col">
                     <input class="ml-1 form-control" id="operator-op-{{index}}-{{op.index}}" *ngIf="op.type == 'VALUE' && currentVariable.type != 'BOOLEAN'"
-                        [(ngModel)]="op.value" (keyup)="changeInputValue(op)" type="text" placeholder="Digite o valor" />
+                        [(ngModel)]="op.value" (keyup)="changeInputValue(op)" type="text" [placeholder]="'GENERAL.DIGIT_VALUE' | translate" />
 
                     <select class="ml-1 form-select" *ngIf="op.type == 'VALUE' && currentVariable.type == 'BOOLEAN'" id="operator-op-{{op.index}}" [(ngModel)]="op.value" (change)="changeValue()">
-                        <option disabled [ngValue]="''">Selecione o valor</option>
-                        <option [ngValue]="'verdadeiro'">verdadeiro</option>
-                        <option [ngValue]="'falso'">falso</option>
+                        <option disabled [ngValue]="''">{{ "GENERAL.SELECT_VALUE" | translate }}</option>
+                        <option [ngValue]="'verdadeiro'">{{ "GENERAL.TRUE" | translate }}</option>
+                        <option [ngValue]="'falso'">{{ "GENERAL.FALSE" | translate }}</option>
                     </select>
                 </div>
 
     
                 <div class="col">
                     <select class="form-select" id="operator-op-{{index}}-{{op.index}}" *ngIf="op.type == 'OPERATOR'" [(ngModel)]="op.value" (change)="changeValue()">
-                        <option [ngValue]="''" disabled *ngIf="op.value == ''">Selecione a operação</option>
+                        <option [ngValue]="''" disabled *ngIf="op.value == ''">{{ "GENERAL.SELECT_OPERATOR" | translate }}</option>
                         <option [ngValue]="'+'">
                             <span class="sr-only">&#43;</span>
                         </option>
@@ -79,7 +79,6 @@
                         </option>
                         <option [ngValue]="'*'">
                             <span aria-hidden="true"><strong>&lowast;</strong></span>
-                            <span aria-hidden="false" class="sr-only">multiplicação</span>
                         </option>
                         <option [ngValue]="'/'">
                             <span class="sr-only">&divide;</span>
@@ -87,7 +86,7 @@
                     </select>
                 </div>
                 <div class="col">
-                    <button class="trash" title="limpar" (click)="clearOperator(i)"><i class="bi bi-trash"></i></button>
+                    <button class="trash" [title]="'GENERAL.CLEAN' | translate" (click)="clearOperator(i)"><i class="bi bi-trash"></i></button>
                 </div>
 
             </div>
@@ -95,26 +94,26 @@
             <div ngbDropdown class="d-flex align-items-center" *ngIf="currentVariable">
                 <button type="button" class="btn btn-primary" id="dropdownAdd" ngbDropdownToggle>
                     <span aria-hidden="true">+</span>
-                    <strong aria-hidden="false" class="sr-only">Adicionar</strong>
+                    <strong aria-hidden="false" class="sr-only">{{ "GENERAL.ADD" | translate }}</strong>
                 </button>
 
                 <div ngbDropdownMenu aria-labelledby="dropdownAdd">
                     <button ngbDropdownItem (click)="addOperator('PARENTHESIS', '(')">
                         <span aria-hidden="true">(</span>
-                        <span aria-hidden="false" class="sr-only">abre parênteses</span>
+                        <span aria-hidden="false" class="sr-only">{{'GENERAL.OPEN_PARENTHESES' | translate }}</span>
                     </button>
                       <button ngbDropdownItem (click)="addOperator('PARENTHESIS', ')')">
                         <span aria-hidden="true">)</span>
-                        <span aria-hidden="false" class="sr-only">fecha parênteses</span>
+                        <span aria-hidden="false" class="sr-only">{{'GENERAL.CLOSE_PARENTHESES' | translate }}</span>
                     </button>
                     <button ngbDropdownItem (click)="addOperator('VARIABLE')">
                         <span>{{ "GENERAL.VARIABLE" | translate }}</span>
                     </button>
                     <button ngbDropdownItem (click)="addOperator('VALUE')">
-                        <span>Valor</span>
+                        <span>{{ "GENERAL.VALUE" | translate }}</span>
                     </button>
                     <button ngbDropdownItem (click)="addOperator('OPERATOR')" *ngIf="(currentVariable?.type == 'INTEGER' || currentVariable?.type == 'DOUBLE') && operators.length > 0">
-                        <span>Operadores Matemáticos</span>
+                        <span>{{ "GENERAL.OPERATOR_MATH" | translate }}</span>
                     </button>
                 </div>
             </div>

@@ -123,7 +123,7 @@ export class ConditionalComponent implements OnInit {
   }
 
   formatCommands() {
-    const currentLang = "pt";
+    const currentLang = this.translate.currentLang;
     this.commandsPlainText = `${currentLang == 'pt' ? 'se' : 'if'} ( ${this.conditional.condition.value} ) { <br/>`;
     this.commandsPlainText += `${this.runCommands(this.conditional.condition.components)}`;
     this.commandsPlainText += `} ${currentLang == 'pt' ? 'senao' : 'else'} { <br/>`;
@@ -132,7 +132,7 @@ export class ConditionalComponent implements OnInit {
   }
 
   runCommands(components: any) {
-    const currentLang = "pt";
+    const currentLang = this.translate.currentLang;
     let programComands = "";
 
     // Other components except variable types

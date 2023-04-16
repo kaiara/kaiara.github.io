@@ -1,8 +1,80 @@
 {
-    "GENERAL": {
-        "LANGUAGES": {
-            "PORTUGUESE": "Portuguese",
-            "ENGLISH": "English"
-        }
+  "GENERAL": {
+    "TITLE": "Start function",    
+    "RECEIVE": "receive",
+    "READ_CODE": "read code",
+    "READ_EDIT": "edit code",
+    "READ_DELETE":"Delete Variable",
+    "TRUE": "true",
+    "FALSE": "false",
+    "LANGUAGES": {
+      "PORTUGUESE": "Portuguese",
+      "ENGLISH": "English"
+    },
+    "MENU": {
+      "START": "Go function start",
+      "ALT_I": "ALT + I Go to home function",
+      "TERMINAL": "go to terminal",
+      "ALT_T": "ALT + T Go to Terminal",
+      "COMANDS": "Go to command list",
+      "ALT_C": "ALT + C Go to command list",
+      "PROGRAM": "run program",
+      "ALT_E": "ALT+E Go Run Program"
+    },
+    "BUTTON": {
+      "RUN": "Execute",
+      "DELETE": "Delete commands"
+    },
+    "WRITE": "Write",
+    "SELECT": "Select",
+    "VARIABLE": "Variable",
+    "TEXT": "Text",
+    "NOT_VARIABLE": "No variables created yet!",
+    "DIGIT": "Enter the text to be printed",
+    "REMOVE_COMANDS": "remove commands",
+    "SELECT_VARIABLE":"select the variable",
+    "SELECT_PAR": "select the parenthesis",
+    "OPEN_PARENTHESES":"open parentheses",
+    "CLOSE_PARENTHESES":"close parentheses",
+    "VALUE":"Value",
+    "SELECT_VALUE":"select value",
+    "DIGIT_VALUE":"enter the amount",
+    "SELECT_OPERATOR":"select the operation",
+    "ADD":"To add",
+    "OPERATOR_MATH":"Mathematical Operators",
+    "CLEAN": "To clean",
+    "IF":"if",
+    "MATH":"arithmetic",
+    "LOGIC":"logical",
+    "MULTPLICATION":"multiplication",
+    "AND":"and",
+    "OR": "or",
+    "NO":"no",
+    "RELATIONAL":"relational",
+    "EXCLAMATION":"Exclamation, same operator not equal to",
+    "CONDITIONAL":"select the condition",
+    "ELSE":"then",
+    "ELSE_IF":"if not",
+    "REPEAT":"repeat_to"
+  },
+  "COMANDS": {
+    "TITLE": "Commands",
+    "BUTTON": {
+      "NEW_VARIABLE": "New Variable",
+      "MATH": "Assignment/Math",
+      "WRITE": "Write",
+      "IF": "If then",
+      "WHILE": "Repeat N Times"
     }
+  },
+  "VARIABLE": {
+    "INT": "whole",
+    "REAL": "real",
+    "TEXT": "text",
+    "LOGIC": "logical",
+    "TYPE": "Variable Type"
+  },
+  "WRITE":{
+    "SELECT_OPERATION": "Select the variable to assign the operation"
+  }
 }

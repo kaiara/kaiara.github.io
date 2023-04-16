@@ -9,9 +9,9 @@
         <div *ngIf="isHidden" class="d-flex flex-column col-8 col-lg-9 conditional">
             <div class="d-flex flex-wrap">
                 <div class="d-flex justify-content-center align-items-center">
-                    <span class="rigth" tabindex="0">se</span>
+                    <span class="rigth" tabindex="0">{{'GENERAL.IF' | translate }}</span>
                     <span aria-hidden="true">&#40; </span>
-                    <span tabindex="0" aria-hidden="false" class="sr-only">abre parênteses</span>
+                    <span tabindex="0" aria-hidden="false" class="sr-only">{{'GENERAL.OPEN_PARENTHESES' | translate }}</span>
                 </div>
 
                 <div class="d-flex align-items-center" *ngFor="let op of conditionals">
@@ -20,7 +20,7 @@
                             [(ngModel)]="op.type" (change)="clearValue(op)">
                             <option [ngValue]="''" selected>{{ "GENERAL.SELECT" | translate }}</option>
                             <option [ngValue]="'VARIABLE'">{{ "GENERAL.VARIABLE" | translate }}</option>
-                            <option [ngValue]="'VALUE'">Valor</option>
+                            <option [ngValue]="'VALUE'">{{ "GENERAL.VALUE" | translate }}</option>
                         </select>
                     </div>
 
@@ -35,7 +35,7 @@
 
                     <div class="col">
                         <input id="conditional-op-{{index}}-{{op.index}}" class="form-control" *ngIf="op.type == 'VALUE'" 
-                            [(ngModel)]="op.valueString" (keyup)="changeInputValue(op)" type="text" placeholder="Digite o valor" />
+                            [(ngModel)]="op.valueString" (keyup)="changeInputValue(op)" type="text" [placeholder]="'GENERAL.DIGIT_VALUE' | translate" />
                     </div>
 
                     <div class="col">
@@ -48,7 +48,7 @@
                             <div ngbDropdownMenu attr.aria-labelledby="conditional-op-{{index}}-{{op.index}}">
                                 <div ngbDropdown placement="right">
                                     <button type="button" class="btn btn-outline-primary" id="dropdown-conditional-{{index}}-{{op.index}}-aritmeticos"
-                                        ngbDropdownToggle>Aritméticos</button>
+                                        ngbDropdownToggle>{{'GENERAL.MATH' | translate }}</button>
                                     <div ngbDropdownMenu attr.aria-labelledby="dropdown-conditional-{{index}}-{{op.index}}-aritmeticos">
                                         <button ngbDropdownItem (click)="changeConditional(op, '+', op.index)">
                                             <span>&#43;</span>
@@ -58,7 +58,7 @@
                                         </button>
                                         <button ngbDropdownItem (click)="changeConditional(op, '*', op.index)">
                                             <span aria-hidden="true">&lowast;</span>
-                                            <span aria-hidden="false" class="sr-only">multiplicação</span>
+                                            <span aria-hidden="false" class="sr-only">{{'GENERAL.MULTPLICATION' | translate }}</span>
                                         </button>
                                         <button ngbDropdownItem (click)="changeConditional(op, '/', op.index)">
                                             <span>&divide;</span>
@@ -70,25 +70,25 @@
                                 </div>
                                 <div ngbDropdown placement="right">
                                     <button type="button" class="btn btn-outline-primary" id="dropdown-conditional-{{index}}-{{op.index}}-logicos"
-                                        ngbDropdownToggle>Lógicos</button>
+                                        ngbDropdownToggle>{{'GENERAL.LOGIC' | translate }}</button>
                                     <div ngbDropdownMenu attr.aria-labelledby="dropdown-conditional-{{index}}-{{op.index}}-logicos">
                                         <button ngbDropdownItem (click)="changeConditional(op, '==', op.index)">
                                             <span>&#61;&#61;</span>
                                         </button>
                                         <button ngbDropdownItem (click)="changeConditional(op, 'E', op.index)">
-                                            <span>E</span>
+                                            <span>{{'GENERAL.AND' | translate }}</span>
                                         </button>
                                         <button ngbDropdownItem (click)="changeConditional(op, 'OU', op.index)">
-                                            <span>OU</span>
+                                            <span>{{'GENERAL.OR' | translate }}</span>
                                         </button>
                                         <button ngbDropdownItem (click)="changeConditional(op, 'nao', op.index)">
-                                            <span>nao</span>
+                                            <span>{{'GENERAL.NO' | translate }}</span>
                                         </button>
                                     </div>
                                 </div>
                                 <div ngbDropdown placement="right">
                                     <button type="button" class="btn btn-outline-primary" id="dropdown-conditional-{{index}}-{{op.index}}-relacionais"
-                                        ngbDropdownToggle>Relacionais</button>
+                                        ngbDropdownToggle>{{'GENERAL.RELATIONAL' | translate }}</button>
                                     <div ngbDropdownMenu attr.aria-labelledby="dropdown-conditional-{{index}}-{{op.index}}-relacionais">
                                         <button ngbDropdownItem (click)="changeConditional(op, '>', op.index)">
                                             <span>&#62;</span>
@@ -101,7 +101,7 @@
                                         </button>
                                         <button ngbDropdownItem (click)="changeConditional(op, '!=', op.index)">
                                             <span aria-hidden="true">!&#61;</span>
-                                            <span aria-hidden="false" class="sr-only">Exclamação, igual operador diferente de</span>
+                                            <span aria-hidden="false" class="sr-only">{{'GENERAL.EXCLAMATION' | translate }}</span>
                                         </button>
                                         <button ngbDropdownItem (click)="changeConditional(op, '>=', op.index)">
                                             <span>&#8805;</span>
@@ -119,17 +119,17 @@
                 <div class="d-flex justify-content-center align-items-center">
                     <button class="btn btn-primary more mr-2" *ngIf="conditionals.length" type="button" (click)="addConditional()">
                         <strong aria-hidden="true">+</strong>
-                        <strong aria-hidden="false" class="sr-only">selecione a condição</strong>
+                        <strong aria-hidden="false" class="sr-only">{{'GENERAL.CONDITIONAL' | translate }}</strong>
                     </button>
                 </div>
 
                 <div class="d-flex justify-content-center align-items-center">
                     <span aria-hidden="true">)</span>
-                    <span tabindex="0" aria-hidden="false" class="sr-only">fecha parênteses</span>
+                    <span tabindex="0" aria-hidden="false" class="sr-only">{{'GENERAL.CLOSE_PARENTHESES' | translate }}</span>
                 </div>
 
                 <div>
-                    <span tabindex="0">então</span>
+                    <span tabindex="0">{{'GENERAL.ELSE' | translate }}</span>
                     <app-command-button 
                         [mode]="'inline'" 
                         [title]="'Adicionar comandos na condição'" 
@@ -142,7 +142,7 @@
                 </div>
 
                 <div class="d-flex justify-content-center align-items-center">
-                    <button class="trash" title="limpar" (click)="clear()"><i class="bi bi-trash"></i></button>
+                    <button class="trash" [title]="'GENERAL.CLEAN' | translate" (click)="clear()"><i class="bi bi-trash"></i></button>
                 </div>
             </div>
         </div>
@@ -200,7 +200,7 @@
 
             <div class="d-flex flex-wrap">
                 <div class="d-flex justify-content-center align-items-center">
-                    <span class="rigth" tabindex="0">senao</span>
+                    <span class="rigth" tabindex="0">{{'GENERAL.REPEAT' | translate }}</span>
                     
                     <app-command-button 
                         [mode]="'inline'" 

@@ -27,7 +27,7 @@
                             (change)="clearStartValue()">
                             <option [ngValue]="''" disabled>{{ "GENERAL.SELECT" | translate }}</option>
                             <option [ngValue]="'VARIABLE'">{{ "GENERAL.VARIABLE" | translate }}</option>
-                            <option [ngValue]="'VALUE'">Valor</option>
+                            <option [ngValue]="'VALUE'">{{ "GENERAL.VALUE" | translate }}</option>
                         </select>
 
                         <select id="for-start-value-{{index}}" class="ml-1 form-select"
@@ -38,7 +38,7 @@
                         </select>
 
                         <input id="for-start-value-{{index}}" class="ml-1 form-control" *ngIf="for.startType == 'VALUE'"
-                            [(ngModel)]="for.startValue" type="text" placeholder="Digite o valor" />
+                            [(ngModel)]="for.startValue" type="text" [placeholder]="'GENERAL.DIGIT_VALUE' | translate" />
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                             (change)="clearFinishValue()">
                             <option [ngValue]="''" disabled>{{ "GENERAL.SELECT" | translate }}</option>
                             <option [ngValue]="'VARIABLE'">{{ "GENERAL.VARIABLE" | translate }}</option>
-                            <option [ngValue]="'VALUE'">Valor</option>
+                            <option [ngValue]="'VALUE'">{{ "GENERAL.VALUE" | translate }}</option>
                         </select>
 
                         <select id="for-finish-value-{{index}}" class="ml-1 form-select"
@@ -64,7 +64,7 @@
 
                         <input id="for-finish-value-{{index}}" class="ml-1 form-control"
                             *ngIf="for.finishType == 'VALUE'" [(ngModel)]="for.finishValue" type="text"
-                            placeholder="Digite o valor" />
+                            [placeholder]="'GENERAL.DIGIT_VALUE' | translate" />
                     </div>
                 </div>
                 <div class="col-4 p-0">
@@ -76,7 +76,7 @@
                             <option [ngValue]="'-'" title="decremento">&minus;&minus;</option>
                         </select>
                         <input id="for-increment-value-{{index}}" class="ml-1 form-control"
-                            [(ngModel)]="for.incrementValue" type="text" placeholder="Digite o valor" />
+                            [(ngModel)]="for.incrementValue" type="text" [placeholder]="'GENERAL.DIGIT_VALUE' | translate" />
                     </div>
                 </div>
 
