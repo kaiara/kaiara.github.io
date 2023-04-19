@@ -11,9 +11,9 @@
                     <div id="cursor"></div>
 
                     <div *ngIf="isRunning" tabindex="0" id="textTerminal">
-                        <span  tabindex="0">Começo da execução...</span>
+                        <span  tabindex="0">{{ "TERMINAL.START" | translate }}</span>
                         <span tabindex="0" id="terminalOutput"></span>
-                        <span tabindex="0">Fim da execução...</span>
+                        <span tabindex="0">{{ "TERMINAL.FINISH" | translate }}</span>
                     </div>
                 </div>
             </div>

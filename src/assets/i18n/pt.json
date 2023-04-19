@@ -76,5 +76,9 @@
   },
   "WRITE":{
     "SELECT_OPERATION": "Selecione a variável para atribuir a operação"
+  },
+  "TERMINAL":{
+    "START": "Começo da execução...",
+    "FINISH": "Fim da execução..."
   }
 }

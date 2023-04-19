@@ -76,5 +76,9 @@
   },
   "WRITE":{
     "SELECT_OPERATION": "Select the variable to assign the operation"
+  },
+  "TERMINAL":{
+    "START": "Start of execution...",
+    "FINISH": "End of execution..."
   }
 }

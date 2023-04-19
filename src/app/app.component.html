@@ -5,6 +5,7 @@
         <header>
           <h1><strong>iVProg Acessível</strong></h1>
         </header>
+
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
@@ -25,10 +26,18 @@
                 (keyup.space)="goToExecut()" [title]="'GENERAL.MENU.ALT_E' | translate"><span aria-hidden="true">{{ "GENERAL.MENU.PROGRAM" | translate }}</span></a>
             </li>
           </ul>
-          <button (click)="changeLanguage('pt')">{{ "GENERAL.LANGUAGES.PORTUGUESE" | translate }}</button>
-          <button (click)="changeLanguage('en')">{{ "GENERAL.LANGUAGES.ENGLISH" | translate }}</button>
+          
         </div>
+
+        <button class="button-flag" (click)="changeLanguage('pt')" title="{{ 'GENERAL.LANGUAGES.PORTUGUESE' | translate }}">
+          <img src="../assets/images/brazil.svg" width="29" />
+        </button>
+
+        <button class="button-flag" (click)="changeLanguage('en')" title="{{ 'GENERAL.LANGUAGES.ENGLISH' | translate }}">
+          <img src="../assets/images/united-states.svg" width="29" />
+        </button>
       </nav>
+      
       <section>
         <div class="col-12 px-4">
           <fieldset>
