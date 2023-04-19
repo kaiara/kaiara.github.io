@@ -54,7 +54,7 @@
     "EXCLAMATION":"Exclamation, same operator not equal to",
     "CONDITIONAL":"select the condition",
     "ELSE":"then",
-    "ELSE_IF":"if not",
+    "ELSE_IF":"else",
     "REPEAT":"repeat_to"
   },
   "COMANDS": {
